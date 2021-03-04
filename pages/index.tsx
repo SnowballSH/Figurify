@@ -1,33 +1,38 @@
 import Head from 'next/head';
-import styles from '../styles/Home.module.css';
 import absoluteUrl from 'next-absolute-url';
+import {Component} from 'react';
 
-import {NextPage} from 'next';
+import styles from '../styles/Home.module.css';
+import CChart from "../components/chart";
 
-interface Props {
-    svg: string
-}
+export default class Home extends Component<{}, ChartProp> {
+    constructor(props) {
+        super(props);
 
-const Home: NextPage<Props> = ({svg}) => {
-    return (
-        <div className={styles.container}>
-            <Head>
-                <title>See The Code</title>
-                <link rel="icon" href="/favicon.ico"/>
-            </Head>
-            <div dangerouslySetInnerHTML={{__html: svg}}>
+        this.state = {
+            id: 'apexchart-example',
+            xaxis: {
+                categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999]
+            },
+            series: [{
+                name: 'series-1',
+                data: [30, 40, 35, 50, 49, 60, 70, 91, 125]
+            }],
+            type: "line",
+            width: 800,
+            height: 500,
+        };
+    }
+
+    render() {
+        return (
+            <div className={styles.container}>
+                <Head>
+                    <title>See The Code</title>
+                </Head>
+                <CChart options={this.state}/>
             </div>
-        </div>
-    );
-};
-
-Home.getInitialProps = async ({req}) => {
-    const {origin} = absoluteUrl(req);
-    console.log(origin);
-    const resp = await fetch(`${origin}/api/svg`);
-    const r = await resp.text();
-    return {svg: r};
-};
-
-export default Home;
+        );
+    }
+}
 
