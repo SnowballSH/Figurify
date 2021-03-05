@@ -2,6 +2,8 @@ import {FieldCombo} from "./field";
 import {Component} from "react";
 
 import autoBind from 'react-autobind';
+import {Button} from "@material-ui/core";
+import {Add} from "@material-ui/icons";
 
 interface PP {
     e: JSX.Element
@@ -63,10 +65,33 @@ export default class DataInput extends Component<{}, PP[]> {
     }
 
     render() {
-        return <div className="space-x-4">
+        return <div className="space-x-8 space-y-4">
             <br/>
             {Object.values(this.state).map(e => e.e)}
-            {/*Object.values(this.state).map(e => <p>{e.xText} {e.yText}</p>)*/}
+
+            <Button style={{
+                border: "none",
+                outline: "none"
+            }} variant="contained" color="default" startIcon={<Add />} onClick={() => {
+                let w = [...Object.values(this.state)];
+                w.push({
+                    e: <FieldCombo defaultX="" defaultY=""
+                                   onChangeX={this.bindChange(w.length, true)}
+                                   onChangeY={this.bindChange(w.length, false)}/>,
+                    xText: "",
+                    yText: ""
+                })
+                this.setState(w);
+            }}>Add More</Button>
+
+            <br/>
+
+            <Button style={{
+                border: "none",
+                outline: "none"
+            }} variant="contained" color="primary" onClick={() => {
+                console.log(JSON.stringify(this.state));
+            }}>Graph</Button>
         </div>;
     }
 }

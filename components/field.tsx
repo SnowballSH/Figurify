@@ -42,7 +42,7 @@ export class FieldCombo extends Component<PP,
 
     render() {
         return (
-            <div style={{padding: "10px"}}>
+            <div style={{marginBottom: "10px"}}>
                 {this.state.x}
                 {this.state.y}
             </div>
