@@ -29,6 +29,7 @@ export default class Home extends Component<{}, ChartProp> {
                     <title>See The Code</title>
                 </Head>
                 <CChart options={this.state}/>
+                <a href="/data">Data</a>
             </div>
         );
     }
