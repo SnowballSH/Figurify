@@ -1,48 +1,13 @@
-import {TextField} from "@material-ui/core";
-import {ChangeEvent, useState} from "react";
+import {FieldCombo} from "./field";
+import {Component} from "react";
 
-export default function DataInput() {
-    const [name, setName] = useState('Cat in the Hat');
-    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setName(event.target.value);
-    };
-
-    return (
-        <form noValidate autoComplete="off">
-            <div>
-                <TextField id="standard-name" label="Name" value={name} onChange={handleChange} />
-                <TextField id="standard-uncontrolled" label="Uncontrolled" defaultValue="foo" />
-            </div>
-            <div>
-                <TextField
-                    id="filled-name"
-                    label="Name"
-                    value={name}
-                    onChange={handleChange}
-                    variant="filled"
-                />
-                <TextField
-                    id="filled-uncontrolled"
-                    label="Uncontrolled"
-                    defaultValue="foo"
-                    variant="filled"
-                />
-            </div>
-            <div>
-                <TextField
-                    id="outlined-name"
-                    label="Name"
-                    value={name}
-                    onChange={handleChange}
-                    variant="outlined"
-                />
-                <TextField
-                    id="outlined-uncontrolled"
-                    label="Uncontrolled"
-                    defaultValue="foo"
-                    variant="outlined"
-                />
-            </div>
-        </form>
-    );
+export default class DataInput extends Component<any, any> {
+    render() {
+        return <div className="space-x-4">
+            <br/>
+            <FieldCombo defaultX="10" defaultY="33"/>
+            <FieldCombo defaultX="20" defaultY="66"/>
+            <FieldCombo defaultX="30" defaultY="99"/>
+        </div>;
+    }
 }

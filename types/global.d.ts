@@ -1,4 +1,18 @@
-type TypeValue = "line" | "area" | "bar" | "histogram" | "pie" | "donut" | "rangeBar" | "radialBar" | "scatter" | "bubble" | "heatmap" | "candlestick" | "radar" | "polarArea"
+type TypeValue =
+    "line"
+    | "area"
+    | "bar"
+    | "histogram"
+    | "pie"
+    | "donut"
+    | "rangeBar"
+    | "radialBar"
+    | "scatter"
+    | "bubble"
+    | "heatmap"
+    | "candlestick"
+    | "radar"
+    | "polarArea"
 
 interface State {
     options: {
