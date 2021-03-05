@@ -1,5 +1,4 @@
 import {Component} from "react";
-import styles from "../styles/Home.module.css";
 import Head from "next/head";
 import dynamic from "next/dynamic";
 
@@ -27,7 +26,7 @@ export default class CChart extends Component<{options: ChartProp}, State> {
 
     render() {
         return (
-            <div className={styles.container}>
+            <div>
                 <Head>
                     <title>See The Code</title>
                 </Head>

@@ -1,8 +1,6 @@
 import Head from 'next/head';
 import absoluteUrl from 'next-absolute-url';
 import {Component} from 'react';
-
-import styles from '../styles/Home.module.css';
 import CChart from "../components/chart";
 
 export default class Home extends Component<{}, ChartProp> {
@@ -26,7 +24,7 @@ export default class Home extends Component<{}, ChartProp> {
 
     render() {
         return (
-            <div className={styles.container}>
+            <div>
                 <Head>
                     <title>See The Code</title>
                 </Head>
