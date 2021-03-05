@@ -29,19 +29,19 @@ export default class DataInput extends Component<{}, PP[]> {
             },
             {
                 e: <FieldCombo defaultX="30" defaultY="99"
-                               onChangeX={this.bindChange(1, true)}
-                               onChangeY={this.bindChange(1, false)}/>,
-                xText: "20",
-                yText: "66"
+                               onChangeX={this.bindChange(2, true)}
+                               onChangeY={this.bindChange(2, false)}/>,
+                xText: "30",
+                yText: "99"
             }
         ];
-        autoBind(this)
+        autoBind(this);
     }
 
     bindChange(i: number, x: boolean): (string) => void {
         return (newVal: string) => {
             this.onTextChange(i, x, newVal);
-        }
+        };
     }
 
     onTextChange(i: number, x: boolean, newVal: string) {
@@ -66,7 +66,7 @@ export default class DataInput extends Component<{}, PP[]> {
         return <div className="space-x-4">
             <br/>
             {Object.values(this.state).map(e => e.e)}
-            {Object.values(this.state).map(e => <p>{e.xText} {e.yText}</p>)}
+            {/*Object.values(this.state).map(e => <p>{e.xText} {e.yText}</p>)*/}
         </div>;
     }
 }
