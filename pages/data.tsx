@@ -3,6 +3,11 @@ import Head from 'next/head';
 import DataInput from "../components/dataInput";
 
 export default class DataPage extends Component<any, any> {
+    constructor(props) {
+        super(props);
+    }
+
+
     render() {
         return (<>
             <Head>
