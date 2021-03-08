@@ -1,4 +1,5 @@
 import Head from 'next/head';
+import Link from 'next/link';
 import absoluteUrl from 'next-absolute-url';
 import {Component} from 'react';
 import CChart from "../components/chart";
@@ -29,7 +30,9 @@ export default class Home extends Component<{}, ChartProp> {
                     <title>See The Code</title>
                 </Head>
                 <CChart options={this.state}/>
-                <a href="/data">Data</a>
+                <Link href="/data">
+                    <a>Data</a>
+                </Link>
             </div>
         );
     }

@@ -15,6 +15,7 @@ export function Field(props: {
         <TextField
             label={props.label}
             value={name}
+            type="number"
             onChange={handleChange}
             variant="filled"
         />
