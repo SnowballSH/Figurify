@@ -98,7 +98,7 @@ export default class DataInput extends Component<{}, { items: PP[], graph: Chart
         return <div className="space-x-8 space-y-8">
             <div className="space-x-10 space-y-4 float-left">
                 <Container className="space-x-4 space-y-4 overflow-scroll"
-                           style={{maxHeight: window.innerHeight * 0.7}}
+                           style={{maxHeight: (typeof window !== "undefined" ? window.innerHeight : 1000) * 0.7}}
                            fixed
                 >
                     <br/>
