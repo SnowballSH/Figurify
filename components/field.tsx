@@ -1,5 +1,6 @@
 import {useState, ChangeEvent, Component} from "react";
-import {TextField} from "@material-ui/core";
+import {Button, IconButton, TextField} from "@material-ui/core";
+import DeleteIcon from "@material-ui/icons/Delete";
 
 export function Field(props: {
     default: string, label: string,
@@ -8,7 +9,7 @@ export function Field(props: {
     const [name, setName] = useState(props.default);
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
         setName(event.target.value);
-        props.onChange(event.target.value)
+        props.onChange(event.target.value);
     };
 
     return (
@@ -27,6 +28,7 @@ interface PP {
     defaultY: string,
     onChangeX: (string) => void
     onChangeY: (string) => void
+    onDelete: () => void
 }
 
 export class FieldCombo extends Component<PP,
@@ -46,6 +48,11 @@ export class FieldCombo extends Component<PP,
             <div style={{marginBottom: "10px"}}>
                 {this.state.x}
                 {this.state.y}
+                <IconButton style={{border: "none", outline: "none"}} aria-label="delete">
+                    <DeleteIcon onClick={
+                        this.props.onDelete
+                    }/>
+                </IconButton>
             </div>
         );
     }

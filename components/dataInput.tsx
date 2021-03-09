@@ -23,21 +23,27 @@ export default class DataInput extends Component<{}, { items: PP[], graph: Chart
                 {
                     e: <FieldCombo defaultX="10" defaultY="20"
                                    onChangeX={this.bindChange(0, true)}
-                                   onChangeY={this.bindChange(0, false)}/>,
+                                   onChangeY={this.bindChange(0, false)}
+                                   onDelete={this.getOnDelete(0)}
+                    />,
                     xText: "10",
                     yText: "20"
                 },
                 {
                     e: <FieldCombo defaultX="20" defaultY="50"
                                    onChangeX={this.bindChange(1, true)}
-                                   onChangeY={this.bindChange(1, false)}/>,
+                                   onChangeY={this.bindChange(1, false)}
+                                   onDelete={this.getOnDelete(1)}
+                    />,
                     xText: "20",
                     yText: "50"
                 },
                 {
                     e: <FieldCombo defaultX="30" defaultY="120"
                                    onChangeX={this.bindChange(2, true)}
-                                   onChangeY={this.bindChange(2, false)}/>,
+                                   onChangeY={this.bindChange(2, false)}
+                                   onDelete={this.getOnDelete(2)}
+                    />,
                     xText: "30",
                     yText: "120"
                 }
@@ -57,15 +63,15 @@ export default class DataInput extends Component<{}, { items: PP[], graph: Chart
             graph: {
                 id: 'data chart',
                 xaxis: {
-                    categories: this.state.items.map(e => parseFloat(e.xText) || 0)
+                    categories: Object.values(this.state.items).filter(e => e).map(e => parseFloat(e.xText) || 0)
                 },
                 series: [{
                     name: 'Y',
-                    data: this.state.items.map(e => parseFloat(e.yText) || 0)
+                    data: Object.values(this.state.items).filter(e => e).map(e => parseFloat(e.yText) || 0)
                 }],
                 type: "line",
-                width: 800,
-                height: 500,
+                width: window.innerWidth * .55,
+                height: window.innerHeight * .7,
             }
         });
     }
@@ -94,44 +100,56 @@ export default class DataInput extends Component<{}, { items: PP[], graph: Chart
         this.setState({items: w, graph: this.state.graph});
     }
 
+    getOnDelete(i: number): () => void {
+        return () => {
+            let k = {...this.state.items};
+            k[i] = null;
+            this.setState({...this.state, items: k});
+        };
+    }
+
     render() {
         return <div className="space-x-8 space-y-8">
-            <div className="space-x-10 space-y-4 float-left">
-                <Container className="space-x-4 space-y-4 overflow-scroll"
-                           style={{maxHeight: (typeof window !== "undefined" ? window.innerHeight : 1000) * 0.7}}
+            <div className="space-x-10 space-y-4 ml-4 float-left">
+                <Container className="m-6 overflow-scroll"
+                           style={
+                               {
+                                   maxHeight: (typeof window !== "undefined" ? window.innerHeight : 1000) * 0.6,
+                                   backgroundColor: "rgba(255, 255, 255, 0.3)",
+                                   borderRadius: "25px",
+                               }
+                           }
                            fixed
                 >
                     <br/>
-                    {Object.values(this.state.items).map(e => e.e)}
+                    {Object.values(this.state.items).map(e => e ? e.e : null)}
+                    <br/>
                 </Container>
 
-                <Button style={{
-                    border: "none",
-                    outline: "none"
-                }} variant="contained" color="default" startIcon={<Add/>} onClick={() => {
-                    let w = [...Object.values(this.state.items)];
-                    w.push({
-                        e: <FieldCombo defaultX="" defaultY=""
-                                       onChangeX={this.bindChange(w.length, true)}
-                                       onChangeY={this.bindChange(w.length, false)}/>,
-                        xText: "",
-                        yText: ""
-                    });
-                    this.setState({items: w, graph: this.state.graph});
-                }}>Add More</Button>
+                <Button style={{border: "none", outline: "none"}} variant="contained" color="default" startIcon={<Add/>}
+                        onClick={() => {
+                            let w = [...Object.values(this.state.items)];
+                            w.push({
+                                e: <FieldCombo defaultX="" defaultY=""
+                                               onChangeX={this.bindChange(w.length, true)}
+                                               onChangeY={this.bindChange(w.length, false)}
+                                               onDelete={this.getOnDelete(w.length)}/>,
+                                xText: "",
+                                yText: ""
+                            });
+                            this.setState({items: w, graph: this.state.graph});
+                        }}>Add More</Button>
 
                 <br/>
 
-                <Button style={{
-                    border: "none",
-                    outline: "none"
-                }} variant="contained" color="primary" onClick={() => {
+                <Button style={{border: "none", outline: "none"}} variant="contained" color="primary" onClick={() => {
                     this.graph();
                 }}>Graph</Button>
 
             </div>
 
-            <div className="float-left" style={{backgroundColor: "white", marginLeft: "50px"}}>
+            <div className="float-left" style={{backgroundColor: "white", borderRadius: "25px", marginLeft: "50px", paddingRight: "10px"}}>
+                <br />
                 {
                     this.state.graph ?
                         <Chart options={{
@@ -139,12 +157,14 @@ export default class DataInput extends Component<{}, { items: PP[], graph: Chart
                                 id: this.state.graph.id
                             },
                             xaxis: this.state.graph.xaxis
-                        }} series={this.state.graph.series} type={this.state.graph.type}
+                        }}
+                               series={this.state.graph.series} type={this.state.graph.type}
                                width={this.state.graph.width} height={this.state.graph.height}
                         />
                         : null
                 }
+                <br />
             </div>
         </div>;
     }
-}
+};
