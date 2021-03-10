@@ -48,10 +48,10 @@ export class FieldCombo extends Component<PP,
             <div style={{marginBottom: "10px"}}>
                 {this.state.x}
                 {this.state.y}
-                <IconButton style={{border: "none", outline: "none"}} aria-label="delete">
-                    <DeleteIcon onClick={
-                        this.props.onDelete
-                    }/>
+                <IconButton style={{border: "none", outline: "none", marginLeft: "10px", paddingRight: 0}} onClick={
+                    this.props.onDelete
+                } aria-label="delete">
+                    <DeleteIcon />
                 </IconButton>
             </div>
         );

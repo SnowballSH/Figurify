@@ -70,8 +70,12 @@ export default class DataInput extends Component<{}, { items: PP[], graph: Chart
                     data: Object.values(this.state.items).filter(e => e).map(e => parseFloat(e.yText) || 0)
                 }],
                 type: "line",
-                width: window.innerWidth * .55,
-                height: window.innerHeight * .7,
+                responsive: [{
+                    breakpoint: 1000,
+                    options: {}
+                }],
+                width: window.innerWidth * .5,
+                height: window.innerHeight * .7
             }
         });
     }
@@ -109,14 +113,17 @@ export default class DataInput extends Component<{}, { items: PP[], graph: Chart
     }
 
     render() {
-        return <div className="space-x-8 space-y-8">
-            <div className="space-x-10 space-y-4 ml-4 float-left">
-                <Container className="m-6 overflow-scroll"
+        return <div className="space-x-8 space-y-8 flex">
+            <div className="space-x-10 space-y-4 ml-4" style={{flex: "40%"}}>
+                <Container className="m-8 overflow-scroll"
                            style={
                                {
-                                   maxHeight: (typeof window !== "undefined" ? window.innerHeight : 1000) * 0.6,
+                                   maxHeight: (typeof window !== "undefined" ? window.innerHeight : 600) * 0.6,
+                                   //maxWidth: (typeof window !== "undefined" ? window.innerWidth : 1200) * 0.4,
                                    backgroundColor: "rgba(255, 255, 255, 0.3)",
-                                   borderRadius: "25px",
+                                   borderRadius: "10px",
+                                   paddingLeft: "30px",
+                                   marginLeft: "20px",
                                }
                            }
                            fixed
@@ -148,22 +155,27 @@ export default class DataInput extends Component<{}, { items: PP[], graph: Chart
 
             </div>
 
-            <div className="float-left" style={{backgroundColor: "white", borderRadius: "25px", marginLeft: "50px", paddingRight: "10px"}}>
-                <br />
+            <div className="flex-auto"
+                 style={{
+                     backgroundColor: "white", borderRadius: "20px", marginLeft: "50px",
+                     paddingRight: "10px", marginRight: "20px"
+                 }}>
+                <br/>
                 {
                     this.state.graph ?
                         <Chart options={{
                             chart: {
                                 id: this.state.graph.id
                             },
-                            xaxis: this.state.graph.xaxis
+                            xaxis: this.state.graph.xaxis,
+                            responsive: this.state.graph.responsive
                         }}
                                series={this.state.graph.series} type={this.state.graph.type}
                                width={this.state.graph.width} height={this.state.graph.height}
                         />
                         : null
                 }
-                <br />
+                <br/>
             </div>
         </div>;
     }
