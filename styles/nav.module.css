@@ -1,0 +1,6 @@
+.Nav {
+    background: #faf1af;
+    background: linear-gradient(329deg, #faf1af 18%,#e6ffa6 77%);
+    background: -moz-linear-gradient(329deg, #faf1af 18%,#e6ffa6 77%);
+    background: -webkit-linear-gradient(329deg, #faf1af 18%,#e6ffa6 77%);
+}

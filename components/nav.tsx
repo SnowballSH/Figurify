@@ -1,9 +1,11 @@
-import {AppBar, Button, IconButton, Toolbar, Typography} from "@material-ui/core";
+import {AppBar, Toolbar, Typography} from "@material-ui/core";
 import Link from "next/link";
+
+import styles from "../styles/nav.module.css"
 
 export function Nav() {
     return (
-        <AppBar position={"sticky"} color={"transparent"} style={{backgroundColor: "#c9ec7c"}}>
+        <AppBar position={"sticky"} color={"transparent"} className={styles.Nav}>
             <Toolbar>
                 <Link href="/">
                     <a><Typography variant="h6" style={{paddingRight: "40px"}}>

@@ -3,11 +3,14 @@ import {Component} from "react";
 
 import autoBind from 'react-autobind';
 import {Button, Container} from "@material-ui/core";
-import {Add} from "@material-ui/icons";
+import Add from "@material-ui/icons/Add";
+import EqualizerIcon from '@material-ui/icons/Equalizer';
 
 import dynamic from "next/dynamic";
 
 const Chart = dynamic(import('react-apexcharts'), {ssr: false});
+
+import styles from '../styles/data.module.css';
 
 interface PP {
     e: JSX.Element
@@ -114,13 +117,13 @@ export default class DataInput extends Component<{}, { items: PP[], graph: Chart
 
     render() {
         return <div className="space-x-8 space-y-8 flex">
-            <div className="space-x-10 space-y-4 ml-4" style={{flex: "40%"}}>
-                <Container className="m-8 overflow-scroll"
+            <div className="space-x-10 space-y-4 ml-4" style={{flex: "24%"}}>
+                <Container className={"m-8 overflow-scroll " + styles.inputCard}
                            style={
                                {
                                    maxHeight: (typeof window !== "undefined" ? window.innerHeight : 600) * 0.6,
                                    //maxWidth: (typeof window !== "undefined" ? window.innerWidth : 1200) * 0.4,
-                                   backgroundColor: "rgba(255, 255, 255, 0.3)",
+                                   //backgroundColor: "rgba(255, 255, 255, 0.3)",
                                    borderRadius: "10px",
                                    paddingLeft: "30px",
                                    marginLeft: "20px",
@@ -133,7 +136,8 @@ export default class DataInput extends Component<{}, { items: PP[], graph: Chart
                     <br/>
                 </Container>
 
-                <Button style={{border: "none", outline: "none"}} variant="contained" color="default" startIcon={<Add/>}
+                <Button className={styles.btn1} style={{border: "none", outline: "none"}} variant="contained"
+                        color="inherit" startIcon={<Add/>}
                         onClick={() => {
                             let w = [...Object.values(this.state.items)];
                             w.push({
@@ -149,17 +153,18 @@ export default class DataInput extends Component<{}, { items: PP[], graph: Chart
 
                 <br/>
 
-                <Button style={{border: "none", outline: "none"}} variant="contained" color="primary" onClick={() => {
+                <Button className={styles.btn2} style={{border: "none", outline: "none"}} variant="contained"
+                        color="inherit" startIcon={<EqualizerIcon/>} onClick={() => {
                     this.graph();
                 }}>Graph</Button>
 
             </div>
 
-            <div className="flex-auto"
-                 style={{
-                     backgroundColor: "white", borderRadius: "20px", marginLeft: "50px",
-                     paddingRight: "10px", marginRight: "20px"
-                 }}>
+            <div
+                style={{
+                    marginLeft: "80px",
+                    paddingRight: "10px", marginRight: "40px"
+                }} className={styles.resultCard}>
                 <br/>
                 {
                     this.state.graph ?

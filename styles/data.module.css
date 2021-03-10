@@ -1,0 +1,39 @@
+.inputCard {
+    background: #fff9eb;
+    background: linear-gradient(329deg, #fff9eb 18%,#dbf2ff 77%);
+    background: -moz-linear-gradient(329deg, #fff9eb 18%,#dbf2ff 77%);
+    background: -webkit-linear-gradient(329deg, #fff9eb 18%,#dbf2ff 77%);
+    border-radius: 10px 10px 10px 10px;
+    box-shadow: 1px 1px 4px #e8e8e8;
+}
+
+.resultCard {
+    background: linear-gradient(17deg, #f7fff7 16%, #f1fff3 73%);
+    background: -moz-linear-gradient(17deg, #f7fff7 16%, #f1fff3 73%);
+    background: -webkit-linear-gradient(17deg, #f7fff7 16%, #f1fff3 73%);
+    border-radius: 10px 10px 10px 10px;
+    box-shadow: 2px 2px 4px #e8e8e8;
+
+    height: 70%;
+}
+
+.bg {
+    background: #eaf7ca;
+    background: linear-gradient(329deg, #eaf7ca 18%,#c5fac3 77%);
+    background: -moz-linear-gradient(329deg, #eaf7ca 18%,#c5fac3 77%);
+    background: -webkit-linear-gradient(329deg, #eaf7ca 18%,#c5fac3 77%);
+}
+
+.btn1 {
+    background: #ccfbff;
+    background: linear-gradient(329deg, #ccfbff 18%,#c2ffe3 77%);
+    background: -moz-linear-gradient(329deg, #ccfbff 18%,#c2ffe3 77%);
+    background: -webkit-linear-gradient(329deg, #ccfbff 18%,#c2ffe3 77%);
+}
+
+.btn2 {
+    background: #ffccff;
+    background: linear-gradient(329deg, #ffccff 18%,#ffc2c2 77%);
+    background: -moz-linear-gradient(329deg, #ffccff 18%,#ffc2c2 77%);
+    background: -webkit-linear-gradient(329deg, #ffccff 18%,#ffc2c2 77%);
+}

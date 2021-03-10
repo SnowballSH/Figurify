@@ -19,6 +19,7 @@ export function Field(props: {
             type="number"
             onChange={handleChange}
             variant="filled"
+            style={{width: "200px"}}
         />
     );
 }
@@ -48,7 +49,7 @@ export class FieldCombo extends Component<PP,
             <div style={{marginBottom: "10px"}}>
                 {this.state.x}
                 {this.state.y}
-                <IconButton style={{border: "none", outline: "none", marginLeft: "10px", paddingRight: 0}} onClick={
+                <IconButton style={{border: "none", outline: "none", marginLeft: "10px"}} onClick={
                     this.props.onDelete
                 } aria-label="delete">
                     <DeleteIcon />
