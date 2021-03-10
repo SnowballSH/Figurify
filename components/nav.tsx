@@ -8,8 +8,8 @@ export function Nav() {
         <AppBar position={"sticky"} color={"transparent"} className={styles.Nav}>
             <Toolbar>
                 <Link href="/">
-                    <a><Typography variant="h6" style={{paddingRight: "40px"}}>
-                        See It All!
+                    <a><Typography variant="h5" style={{paddingRight: "40px", fontWeight: "bold"}}>
+                        See It All
                     </Typography></a>
                 </Link>
 

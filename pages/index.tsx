@@ -1,8 +1,8 @@
 import Head from 'next/head';
-import Link from 'next/link';
 import absoluteUrl from 'next-absolute-url';
 import {Component} from 'react';
 import {Nav} from "../components/nav";
+import HomePage from "../components/home";
 
 export default class Home extends Component<{}, ChartProp> {
     constructor(props) {
@@ -13,12 +13,10 @@ export default class Home extends Component<{}, ChartProp> {
         return (
             <div>
                 <Head>
-                    <title>See The Code</title>
+                    <title>See It All!</title>
                 </Head>
                 <Nav/>
-                <Link href="/data">
-                    <a>Data</a>
-                </Link>
+                <HomePage/>
             </div>
         );
     }

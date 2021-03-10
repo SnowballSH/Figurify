@@ -136,7 +136,7 @@ export default class DataInput extends Component<{}, { items: PP[], graph: Chart
                     <br/>
                 </Container>
 
-                <Button className={styles.btn1} style={{border: "none", outline: "none"}} variant="contained"
+                <Button className={styles.btn1} style={{border: "none", outline: "none", fontFamily: "roboto"}} variant="contained"
                         color="inherit" startIcon={<Add/>}
                         onClick={() => {
                             let w = [...Object.values(this.state.items)];
@@ -153,7 +153,7 @@ export default class DataInput extends Component<{}, { items: PP[], graph: Chart
 
                 <br/>
 
-                <Button className={styles.btn2} style={{border: "none", outline: "none"}} variant="contained"
+                <Button className={styles.btn2} style={{border: "none", outline: "none", fontFamily: "roboto"}} variant="contained"
                         color="inherit" startIcon={<EqualizerIcon/>} onClick={() => {
                     this.graph();
                 }}>Graph</Button>
