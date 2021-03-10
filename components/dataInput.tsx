@@ -75,7 +75,7 @@ export default class DataInput extends Component<{}, { items: PP[], graph: Chart
                     options: {}
                 }],
                 width: window.innerWidth * .5,
-                height: window.innerHeight * .7
+                height: window.innerHeight * .6
             }
         });
     }
