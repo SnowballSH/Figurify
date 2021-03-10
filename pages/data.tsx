@@ -10,7 +10,7 @@ export default class DataPage extends Component<any, any> {
     render() {
         return (<>
             <Head>
-                <title>See The Code - Data Visualizing</title>
+                <title>See It All! - Data Visualizing</title>
             </Head>
             <div style={{backgroundColor: "#daf5bc"}}>
                 <DataInput/>
