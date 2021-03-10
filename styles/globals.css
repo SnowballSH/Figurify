@@ -7,7 +7,8 @@ body,
 body > div:first-child,
 div#__next,
 div#__next > div {
-    height: calc(100% - 16px);
+    height: calc(100vh - 64px);
+    width: 100vw
 }
 
 * {

@@ -19,7 +19,7 @@ export function Field(props: {
             type="number"
             onChange={handleChange}
             variant="filled"
-            style={{width: "200px"}}
+            style={{width: "12vw"}}
         />
     );
 }
