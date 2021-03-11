@@ -8,7 +8,7 @@ body > div:first-child,
 div#__next,
 div#__next > div {
     height: calc(100vh - 64px);
-    width: 100vw
+    min-width: 100vw
 }
 
 * {
@@ -27,9 +27,9 @@ div#__next > div {
     background: linear-gradient(13deg, #c5fff0 48%, #b4fdd8 64%);
 }
 ::-webkit-scrollbar-track{
-    background: rgba(158, 246, 158, 0.1);
+    background: rgba(158, 246, 158, 0);
     border-radius: 10px;
 }
 ::-webkit-scrollbar-corner {
-    background: rgba(158, 246, 158, 0.2);
+    background: rgba(158, 246, 158, 0);
 }

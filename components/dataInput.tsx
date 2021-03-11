@@ -116,7 +116,7 @@ export default class DataInput extends Component<{}, { items: PP[], graph: Chart
     }
 
     render() {
-        return <div className="space-x-8 space-y-8 flex">
+        return <div className={"space-x-8 space-y-8 flex " + styles.bg}>
             <div className="space-x-10 space-y-4 ml-4" style={{flex: "24%"}}>
                 <Container className={"m-8 overflow-scroll " + styles.inputCard}
                            style={
@@ -153,7 +153,7 @@ export default class DataInput extends Component<{}, { items: PP[], graph: Chart
 
                 <br/>
 
-                <Button className={styles.btn2} style={{border: "none", outline: "none", fontFamily: "roboto"}} variant="contained"
+                <Button className={styles.btn2} style={{border: "none", outline: "none", fontFamily: "roboto", marginBottom: "10px"}} variant="contained"
                         color="inherit" startIcon={<EqualizerIcon/>} onClick={() => {
                     this.graph();
                 }}>Graph</Button>
@@ -164,7 +164,7 @@ export default class DataInput extends Component<{}, { items: PP[], graph: Chart
                 style={{
                     marginLeft: "80px",
                     paddingRight: "10px", marginRight: "40px"
-                }} className={styles.resultCard}>
+                }} className={styles.resultCard + " overflow-scroll"}>
                 <br/>
                 {
                     this.state.graph ?
