@@ -12,6 +12,8 @@ const Chart = dynamic(import('react-apexcharts'), {ssr: false});
 
 import styles from '../styles/data.module.css';
 
+import FlipMove from 'react-flip-move';
+
 interface PP {
     e: JSX.Element
     xText: string
@@ -24,29 +26,29 @@ export default class DataInput extends Component<{}, { items: PP[], graph: Chart
         this.state = {
             items: [
                 {
-                    e: <FieldCombo defaultX="10" defaultY="20"
-                                   onChangeX={this.bindChange(0, true)}
-                                   onChangeY={this.bindChange(0, false)}
-                                   onDelete={this.getOnDelete(0)}
-                    />,
+                    e: <div key="0"><FieldCombo defaultX="10" defaultY="20"
+                                                onChangeX={this.bindChange(0, true)}
+                                                onChangeY={this.bindChange(0, false)}
+                                                onDelete={this.getOnDelete(0)}
+                    /></div>,
                     xText: "10",
                     yText: "20"
                 },
                 {
-                    e: <FieldCombo defaultX="20" defaultY="50"
-                                   onChangeX={this.bindChange(1, true)}
-                                   onChangeY={this.bindChange(1, false)}
-                                   onDelete={this.getOnDelete(1)}
-                    />,
+                    e: <div key="1"><FieldCombo defaultX="20" defaultY="50"
+                                                onChangeX={this.bindChange(1, true)}
+                                                onChangeY={this.bindChange(1, false)}
+                                                onDelete={this.getOnDelete(1)}
+                    /></div>,
                     xText: "20",
                     yText: "50"
                 },
                 {
-                    e: <FieldCombo defaultX="30" defaultY="120"
-                                   onChangeX={this.bindChange(2, true)}
-                                   onChangeY={this.bindChange(2, false)}
-                                   onDelete={this.getOnDelete(2)}
-                    />,
+                    e: <div key="2"><FieldCombo defaultX="30" defaultY="120"
+                                                onChangeX={this.bindChange(2, true)}
+                                                onChangeY={this.bindChange(2, false)}
+                                                onDelete={this.getOnDelete(2)}
+                    /></div>,
                     xText: "30",
                     yText: "120"
                 }
@@ -133,19 +135,24 @@ export default class DataInput extends Component<{}, { items: PP[], graph: Chart
                            fixed
                 >
                     <br/>
-                    {Object.values(this.state.items).map(e => e ? e.e : null)}
+                    <FlipMove>
+                        {Object.values(this.state.items).map(e => e ? e.e : null)}
+                    </FlipMove>
                     <br/>
                 </Container>
 
-                <Button className={styles.btn1} style={{border: "none", outline: "none", fontFamily: "roboto"}} variant="contained"
+                <Button className={styles.btn1} style={{border: "none", outline: "none", fontFamily: "roboto"}}
+                        variant="contained"
                         color="inherit" startIcon={<Add/>}
                         onClick={() => {
                             let w = [...Object.values(this.state.items)];
                             w.push({
-                                e: <FieldCombo defaultX="" defaultY=""
-                                               onChangeX={this.bindChange(w.length, true)}
-                                               onChangeY={this.bindChange(w.length, false)}
-                                               onDelete={this.getOnDelete(w.length)}/>,
+                                e: <div key={String(this.state.items.length)}>
+                                    <FieldCombo defaultX="" defaultY=""
+                                                onChangeX={this.bindChange(w.length, true)}
+                                                onChangeY={this.bindChange(w.length, false)}
+                                                onDelete={this.getOnDelete(w.length)}/>
+                                </div>,
                                 xText: "",
                                 yText: ""
                             });
@@ -154,7 +161,9 @@ export default class DataInput extends Component<{}, { items: PP[], graph: Chart
 
                 <br/>
 
-                <Button className={styles.btn2} style={{border: "none", outline: "none", fontFamily: "roboto", marginBottom: "10px"}} variant="contained"
+                <Button className={styles.btn2}
+                        style={{border: "none", outline: "none", fontFamily: "roboto", marginBottom: "10px"}}
+                        variant="contained"
                         color="inherit" startIcon={<EqualizerIcon/>} onClick={() => {
                     this.graph();
                 }}>Graph</Button>

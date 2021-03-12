@@ -1,7 +1,7 @@
 import {AppBar, Toolbar, Typography} from "@material-ui/core";
 import Link from "next/link";
 
-import styles from "../styles/nav.module.css"
+import styles from "../styles/nav.module.css";
 
 export function Nav() {
     return (

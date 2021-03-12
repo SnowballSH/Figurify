@@ -1,7 +1,7 @@
 import dynamic from "next/dynamic";
 import {Typography, Box, Card, CardContent} from "@material-ui/core";
 
-import styles from "../styles/home.module.css";
+import styles from "../styles/home.module.scss";
 
 const ParticlesBg = dynamic(import('particles-bg'), {ssr: false});
 const Chart = dynamic(import('react-apexcharts'), {ssr: false});
