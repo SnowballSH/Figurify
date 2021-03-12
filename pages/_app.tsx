@@ -1,4 +1,5 @@
 import '../styles/globals.css';
+import '../styles/reset.css'
 import "nprogress/nprogress.css";
 
 import Head from "next/head";
