@@ -8,7 +8,8 @@ body > div:first-child,
 div#__next,
 div#__next > div {
     height: calc(100vh - 64px);
-    min-width: 100vw
+    width: 100vw;
+    max-width: 100%;
 }
 
 * {
@@ -19,17 +20,21 @@ div#__next > div {
     width: 13px;
     height: 13px;
 }
+
 ::-webkit-scrollbar-thumb {
-    background: linear-gradient(13deg, #d4fff4 42%,#c7ffe0 64%);
+    background: linear-gradient(13deg, #d4fff4 42%, #c7ffe0 64%);
     border-radius: 10px;
 }
-::-webkit-scrollbar-thumb:hover{
+
+::-webkit-scrollbar-thumb:hover {
     background: linear-gradient(13deg, #c5fff0 48%, #b4fdd8 64%);
 }
-::-webkit-scrollbar-track{
+
+::-webkit-scrollbar-track {
     background: rgba(158, 246, 158, 0);
     border-radius: 10px;
 }
+
 ::-webkit-scrollbar-corner {
     background: rgba(158, 246, 158, 0);
 }

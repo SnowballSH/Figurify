@@ -1,14 +1,14 @@
 import dynamic from "next/dynamic";
 import {Typography, Box, Card, CardContent} from "@material-ui/core";
 
-import styles from "../styles/home.module.css"
+import styles from "../styles/home.module.css";
 
 const ParticlesBg = dynamic(import('particles-bg'), {ssr: false});
 const Chart = dynamic(import('react-apexcharts'), {ssr: false});
 
 export default function HomePage() {
-    return <div className="overflow-scroll p-0 m-0">
-        <div style={{minHeight: "calc(100vh - 64px)", minWidth: "100vw", maxWidth: "100vw"}}>
+    return <div className="overflow-hidden ">
+        <div style={{minHeight: "calc(100vh - 64px)", width: "100vw", maxWidth: "100%"}}>
             <ParticlesBg num={2} type="fountain" bg={true}/>
             <ParticlesBg num={2} type="polygon" bg={true}/>
 
@@ -24,7 +24,7 @@ export default function HomePage() {
             </div>
         </div>
 
-        <div className={styles.homeBG1}>
+        <div className={styles.homeBG1} style={{width: "100vw", maxWidth: "100%"}}>
             <div className="text-center pb-8 pt-10">
                 <Typography variant={"h2"}>
                     Here's what you can do:

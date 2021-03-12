@@ -66,7 +66,8 @@ export default class DataInput extends Component<{}, { items: PP[], graph: Chart
             graph: {
                 id: 'data chart',
                 xaxis: {
-                    categories: Object.values(this.state.items).filter(e => e).map(e => parseFloat(e.xText) || 0)
+                    // @ts-ignore
+                    categories: Object.values(this.state.items).filter(e => e).map(e => String(e.xText) || "")
                 },
                 series: [{
                     name: 'Y',
@@ -117,7 +118,7 @@ export default class DataInput extends Component<{}, { items: PP[], graph: Chart
 
     render() {
         return <div className={"space-x-8 space-y-8 flex " + styles.bg}>
-            <div className="space-x-10 space-y-4 ml-4" style={{flex: "24%"}}>
+            <div className="space-x-10 space-y-4 ml-4" style={{flex: "35%"}}>
                 <Container className={"m-8 overflow-scroll " + styles.inputCard}
                            style={
                                {
@@ -164,7 +165,7 @@ export default class DataInput extends Component<{}, { items: PP[], graph: Chart
                 style={{
                     marginLeft: "80px",
                     paddingRight: "10px", marginRight: "40px"
-                }} className={styles.resultCard + " overflow-scroll"}>
+                }} className={styles.resultCard + " overflow-scroll flex-auto"}>
                 <br/>
                 {
                     this.state.graph ?

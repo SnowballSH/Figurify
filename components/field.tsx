@@ -4,7 +4,8 @@ import DeleteIcon from "@material-ui/icons/Delete";
 
 export function Field(props: {
     default: string, label: string,
-    onChange: (string) => void
+    onChange: (string) => void,
+    number: boolean
 }) {
     const [name, setName] = useState(props.default);
     const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -16,10 +17,10 @@ export function Field(props: {
         <TextField
             label={props.label}
             value={name}
-            type="number"
+            type={props.number ? "number" : "text"}
             onChange={handleChange}
             variant="filled"
-            style={{width: "12vw"}}
+            style={{width: "11vw"}}
         />
     );
 }
@@ -38,9 +39,9 @@ export class FieldCombo extends Component<PP,
         super(props);
         this.state = {
             x: <a style={{marginRight: "10px"}}>
-                <Field default={this.props.defaultX} label={"X"} onChange={props.onChangeX}/>
+                <Field default={this.props.defaultX} label={"X"} onChange={props.onChangeX} number={false}/>
             </a>,
-            y: <Field default={this.props.defaultY} label={"Y"} onChange={props.onChangeY}/>
+            y: <Field default={this.props.defaultY} label={"Y"} onChange={props.onChangeY} number={true}/>
         };
     }
 
