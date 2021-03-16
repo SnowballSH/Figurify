@@ -1,23 +1,39 @@
-.resultDiv {
-  background: linear-gradient(13deg, #ffd4f4 14%,#d2c5fc 73%);
-  background: -moz-linear-gradient(13deg, #ffd4f4 14%,#d2c5fc 73%);
-  background: -webkit-linear-gradient(13deg, #ffd4f4 14%,#d2c5fc 73%);
+.cardDiv {
+  background: linear-gradient(13deg, #d4ffdb 14%, #c7d9ff 73%);
+  background: -moz-linear-gradient(13deg, #d4ffdb 14%, #c7d9ff 73%);
+  background: -webkit-linear-gradient(13deg, #d4ffdb 14%, #c7d9ff 73%);
   border-radius: 10px 10px 10px 10px;
-  box-shadow: 7px 8px 12px #e8e8e8;
+  box-shadow: 4px 4px 12px #e8e8e8;
+
+  @apply m-10;
+  @apply p-10;
+}
+
+.resultDiv {
+  background: linear-gradient(13deg, #ffd4f4 14%, #d2c5fc 73%);
+  background: -moz-linear-gradient(13deg, #ffd4f4 14%, #d2c5fc 73%);
+  background: -webkit-linear-gradient(13deg, #ffd4f4 14%, #d2c5fc 73%);
+  border-radius: 10px 10px 10px 10px;
+  box-shadow: 3px 3px 6px #e8e8e8;
 
   grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
   grid-gap: 10px;
 
-  @apply m-10;
-  @apply p-10;
+  @apply m-24;
+  @apply p-8;
   @apply grid;
 }
 
 .resultItem {
-  background: linear-gradient(13deg, #d4ffeb 14%,#c7ffdc 73%);
-  background: -moz-linear-gradient(13deg, #d4ffeb 14%,#c7ffdc 73%);
-  background: -webkit-linear-gradient(13deg, #d4ffeb 14%,#c7ffdc 73%);
-  border-radius: 10px 10px 10px 10px;
+  background: #fce8d8;
+  background: linear-gradient(90deg, #fce8d8 18%, #f7eec9 77%);
+  background: -moz-linear-gradient(90deg, #fce8d8 18%, #f7eec9 77%);
+  background: -webkit-linear-gradient(90deg, #fce8d8 18%, #f7eec9 77%);
+  border-radius: 7px;
 
   @apply p-5
+}
+
+.navigation {
+  @apply text-center;
 }

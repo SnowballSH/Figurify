@@ -1,5 +1,5 @@
 import '../styles/globals.scss';
-import '../styles/reset.scss';
+import '../styles/reset.min.css';
 import "nprogress/nprogress.css";
 
 import Head from "next/head";
@@ -25,8 +25,6 @@ const theme = createMuiTheme({
 function MyApp({Component, pageProps}) {
     return <>
         <Head>
-            <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap"/>
-            <link href="https://fonts.googleapis.com/css2?family=Chilanka&display=swap" rel="stylesheet"/>
             <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
             <title>{NAME}</title>
         </Head>

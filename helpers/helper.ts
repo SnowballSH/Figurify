@@ -1,4 +1,8 @@
 export const noBorder = {border: "none", outline: "none", marginLeft: "10px"};
+export const Akaya = {fontFamily: "Akaya Telivigala, cursive"};
+export const Roboto = {fontFamily: "roboto"};
+export const Pangolin = {fontFamily: "Pangolin, cursive"};
+export const OpenSans = {fontFamily: "Open Sans, sans-serif"}
 
 export class ItemIterator {
     values: Array<Array<any>>;

@@ -4,9 +4,9 @@ import Head from "next/head";
 import {Nav} from "../components/nav";
 
 import styles from "../styles/sort.module.scss";
-import {Button, IconButton} from "@material-ui/core";
+import {Button, IconButton, Typography} from "@material-ui/core";
 
-import {ItemIterator, noBorder} from "../helpers/helper";
+import {ItemIterator, noBorder, OpenSans} from "../helpers/helper";
 
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
@@ -30,15 +30,10 @@ export default function BubblePage() {
         };
     }
 
-    return <div>
-        <Head>
-            <title>{NAME} - Sorting Visualizing</title>
-        </Head>
-        <Nav/>
-
-        <Button style={noBorder} onClick={async () => {
+    function fetchResult(name_: string): () => Promise<void> {
+        return async () => {
             let res = await fetch(
-                '/api/bubble', {
+                `/api/${name_}`, {
                     body: JSON.stringify({
                         Array: items
                     }),
@@ -51,41 +46,48 @@ export default function BubblePage() {
 
             let result = await res.json();
 
-            console.log(result);
-
             result = result.map(w => w.map(function (x) {
                 return {n: x.Value, key: x.Key} as NumberWithKey;
             }));
 
-            console.log(result);
-
             setIter(new ItemIterator(result));
-        }}>
+        }
+    }
+
+    return <div>
+        <Head>
+            <title>{NAME} - Sorting Visualizing</title>
+        </Head>
+        <Nav/>
+
+        <Button style={noBorder} onClick={fetchResult("bubble")}>
             Bubble Sort
         </Button>
 
-        <div>
+        <div className={styles.cardDiv}>
             <FlipMove className={styles.resultDiv}>
                 {current.map((e) =>
                     <div key={e.key} className={styles.resultItem}>
-                        {e.n}
+                        <Typography style={{...OpenSans}} className="text-center">
+                            {e.n}
+                        </Typography>
                     </div>)}
             </FlipMove>
-        </div>
 
-        <div>
-            <IconButton style={{...noBorder, marginLeft: "10px"}} onClick={onClickBind(iter.start)}>
-                <FirstPageIcon/>
-            </IconButton>
-            <IconButton style={{...noBorder, marginLeft: "10px"}} onClick={onClickBind(iter.back)}>
-                <NavigateBeforeIcon/>
-            </IconButton>
-            <IconButton style={{...noBorder, marginLeft: "10px"}} onClick={onClickBind(iter.next)}>
-                <NavigateNextIcon/>
-            </IconButton>
-            <IconButton style={{...noBorder, marginLeft: "10px"}} onClick={onClickBind(iter.end)}>
-                <LastPageIcon/>
-            </IconButton>
+            <div className={styles.navigation}>
+                <IconButton style={{...noBorder, marginLeft: "10px"}} onClick={onClickBind(iter.start)}>
+                    <FirstPageIcon/>
+                </IconButton>
+                <IconButton style={{...noBorder, marginLeft: "10px"}} onClick={onClickBind(iter.back)}>
+                    <NavigateBeforeIcon/>
+                </IconButton>
+                <IconButton style={{...noBorder, marginLeft: "10px"}} onClick={onClickBind(iter.next)}>
+                    <NavigateNextIcon/>
+                </IconButton>
+                <IconButton style={{...noBorder, marginLeft: "10px"}} onClick={onClickBind(iter.end)}>
+                    <LastPageIcon/>
+                </IconButton>
+            </div>
         </div>
     </div>;
 }
