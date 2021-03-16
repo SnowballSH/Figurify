@@ -12,6 +12,7 @@ import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import LastPageIcon from '@material-ui/icons/LastPage';
 import FirstPageIcon from '@material-ui/icons/FirstPage';
+import {NAME} from "../config/config";
 
 export default function BubblePage() {
     const [items, setItems] = useState([3, 4, 2, 1, 2] as number[]);
@@ -31,7 +32,7 @@ export default function BubblePage() {
 
     return <div>
         <Head>
-            <title>See It All! - Sorting Visualizing</title>
+            <title>{NAME} - Sorting Visualizing</title>
         </Head>
         <Nav/>
 

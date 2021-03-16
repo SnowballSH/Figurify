@@ -3,6 +3,7 @@ import Head from 'next/head';
 import DataInput from "../components/dataInput";
 import {Nav} from "../components/nav";
 import styles from "../styles/data.module.scss";
+import {NAME} from "../config/config";
 
 export default class DataPage extends Component<any, any> {
     constructor(props) {
@@ -12,7 +13,7 @@ export default class DataPage extends Component<any, any> {
     render() {
         return (<>
             <Head>
-                <title>See It All! - Data Visualizing</title>
+                <title>{NAME} - Data Visualizing</title>
             </Head>
             <Nav/>
             <div className={styles.bg}>

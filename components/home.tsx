@@ -15,7 +15,7 @@ export default function HomePage() {
             <div className="text-center" style={{paddingTop: "calc(40vh - 64px)"}}>
                 <Typography variant={"h1"} className="font-bold">
                     <Box fontWeight={600} m={1}>
-                        Visualize Anything.
+                        Figurify The Algorithms
                     </Box>
                 </Typography>
                 <Typography variant={"h2"}>

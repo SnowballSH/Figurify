@@ -1,1 +1,3 @@
 *.tsx linguist-language=TypeScript
+postcss.config.js linguist-language=SCSS
+tailwind.config.js linguist-language=SCSS
