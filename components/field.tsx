@@ -1,6 +1,7 @@
 import {useState, ChangeEvent, Component} from "react";
-import {Button, IconButton, TextField} from "@material-ui/core";
+import {IconButton, TextField} from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
+import {noBorder} from "../helpers/helper";
 
 export function Field(props: {
     default: string, label: string,
@@ -50,7 +51,7 @@ export class FieldCombo extends Component<PP,
             <div style={{marginBottom: "10px"}}>
                 {this.state.x}
                 {this.state.y}
-                <IconButton style={{border: "none", outline: "none", marginLeft: "10px"}} onClick={
+                <IconButton style={{...noBorder, marginLeft: "10px"}} onClick={
                     this.props.onDelete
                 } aria-label="delete">
                     <DeleteIcon/>

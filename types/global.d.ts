@@ -30,7 +30,7 @@ interface State {
     type: TypeValue
     width: number
     height: number
-    responsive: {breakpoint: number, options: object}[]
+    responsive: { breakpoint: number, options: object }[]
 }
 
 interface ChartProp {
@@ -45,5 +45,10 @@ interface ChartProp {
     type: TypeValue
     width: number
     height: number
-    responsive: {breakpoint: number, options: object}[]
+    responsive: { breakpoint: number, options: object }[]
+}
+
+interface NumberWithKey {
+    n: number
+    key: number
 }

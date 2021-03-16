@@ -1,0 +1,24 @@
+.resultDiv {
+  background: linear-gradient(13deg, #ffd4f4 14%,#d2c5fc 73%);
+  background: -moz-linear-gradient(13deg, #ffd4f4 14%,#d2c5fc 73%);
+  background: -webkit-linear-gradient(13deg, #ffd4f4 14%,#d2c5fc 73%);
+  border-radius: 10px 10px 10px 10px;
+  box-shadow: 7px 8px 12px #e8e8e8;
+
+  grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+  grid-gap: 10px;
+
+  @apply m-10;
+  @apply p-10;
+  @apply grid;
+}
+
+.resultItem {
+  background: linear-gradient(13deg, #d4ffeb 14%,#c7ffdc 73%);
+  background: -moz-linear-gradient(13deg, #d4ffeb 14%,#c7ffdc 73%);
+  background: -webkit-linear-gradient(13deg, #d4ffeb 14%,#c7ffdc 73%);
+  border: 12px dashed inherit;
+  border-radius: 10px 10px 10px 10px;
+
+  @apply p-5
+}

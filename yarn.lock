@@ -2039,9 +2039,10 @@ parse-json@^5.0.0:
     json-parse-even-better-errors "^2.3.0"
     lines-and-columns "^1.1.6"
 
-"particles-bg@https://github.com/lindelof/particles-bg":
+particles-bg@^2.5.0:
   version "2.5.0"
-  resolved "https://github.com/lindelof/particles-bg#1a51d7fa02551dd606db6dcf34a1d030599b1b14"
+  resolved "https://registry.yarnpkg.com/particles-bg/-/particles-bg-2.5.0.tgz#1e84f928124175c856f898f862490d4fa47e0ae2"
+  integrity sha512-Ni3OTJmPmsT7XiyqBbUFdz+s1TkoJiPCfaEuSgOxvGp2R5CLUpod7fiHCURUqKK8bCCzVIfP0vM43dV/Crpk7Q==
   dependencies:
     proton-engine "^4.1.3"
     raf-manager "^0.3.0"

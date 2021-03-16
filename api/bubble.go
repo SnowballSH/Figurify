@@ -17,7 +17,12 @@ func Bubble(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		var requestedArray []int
+		type item struct {
+			Value int
+			Key   int
+		}
+
+		var requestedArray []*item
 
 		var resp struct {
 			Array []int
@@ -32,23 +37,28 @@ func Bubble(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		requestedArray = resp.Array
+		for i, x := range resp.Array {
+			requestedArray = append(requestedArray, &item{
+				Value: x,
+				Key:   i,
+			})
+		}
 
 		swapped := true
 
-		var result [][]int
+		var result [][]*item
 		length := len(requestedArray)
 
-		k := make([]int, length)
+		k := make([]*item, length)
 		copy(k, requestedArray)
 		result = append(result, k)
 
 		for swapped {
 			swapped = false
-			for i := 1; i < length; i++ {
-				if requestedArray[i-1] > requestedArray[i] {
+			for i := 1; i < len(requestedArray); i++ {
+				if requestedArray[i-1].Value > requestedArray[i].Value {
 					requestedArray[i-1], requestedArray[i] = requestedArray[i], requestedArray[i-1]
-					k := make([]int, length)
+					k := make([]*item, length)
 					copy(k, requestedArray)
 					result = append(result, k)
 					swapped = true

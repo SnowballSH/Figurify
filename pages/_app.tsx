@@ -1,5 +1,5 @@
 import '../styles/globals.scss';
-import '../styles/reset.css';
+import '../styles/reset.scss';
 import "nprogress/nprogress.css";
 
 import Head from "next/head";

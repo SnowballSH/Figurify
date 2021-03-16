@@ -10,9 +10,10 @@ import dynamic from "next/dynamic";
 
 const Chart = dynamic(import('react-apexcharts'), {ssr: false});
 
-import styles from '../styles/data.module.css';
+import styles from '../styles/data.module.scss';
 
 import FlipMove from 'react-flip-move';
+import {noBorder} from "../helpers/helper";
 
 interface PP {
     e: JSX.Element
@@ -141,7 +142,7 @@ export default class DataInput extends Component<{}, { items: PP[], graph: Chart
                     <br/>
                 </Container>
 
-                <Button className={styles.btn1} style={{border: "none", outline: "none", fontFamily: "roboto"}}
+                <Button className={styles.btn1} style={{...noBorder, fontFamily: "roboto"}}
                         variant="contained"
                         color="inherit" startIcon={<Add/>}
                         onClick={() => {
@@ -162,7 +163,7 @@ export default class DataInput extends Component<{}, { items: PP[], graph: Chart
                 <br/>
 
                 <Button className={styles.btn2}
-                        style={{border: "none", outline: "none", fontFamily: "roboto", marginBottom: "10px"}}
+                        style={{...noBorder, fontFamily: "roboto", marginBottom: "10px"}}
                         variant="contained"
                         color="inherit" startIcon={<EqualizerIcon/>} onClick={() => {
                     this.graph();
