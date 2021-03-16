@@ -51,7 +51,7 @@ export default function BubblePage() {
             }));
 
             setIter(new ItemIterator(result));
-        }
+        };
     }
 
     return <div>
