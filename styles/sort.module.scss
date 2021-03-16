@@ -19,7 +19,7 @@
   grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
   grid-gap: 10px;
 
-  @apply m-24;
+  @apply m-20;
   @apply p-8;
   @apply grid;
 }
