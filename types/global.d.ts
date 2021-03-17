@@ -52,3 +52,8 @@ interface NumberWithKey {
     n: number
     key: number
 }
+
+interface Step {
+    list: NumberWithKey[]
+    why: string
+}

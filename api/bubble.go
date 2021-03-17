@@ -7,6 +7,20 @@ import (
 	"time"
 )
 
+type item struct {
+	Value int
+	Key   int
+}
+
+type step struct {
+	List []*item
+	Why  string
+}
+
+var resp struct {
+	Array []int
+}
+
 func Bubble(w http.ResponseWriter, r *http.Request) {
 	start := time.Now()
 
@@ -17,16 +31,7 @@ func Bubble(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		type item struct {
-			Value int
-			Key   int
-		}
-
 		var requestedArray []*item
-
-		var resp struct {
-			Array []int
-		}
 
 		d := json.NewDecoder(r.Body)
 
@@ -46,12 +51,15 @@ func Bubble(w http.ResponseWriter, r *http.Request) {
 
 		swapped := true
 
-		var result [][]*item
+		var result []*step
 		length := len(requestedArray)
 
 		k := make([]*item, length)
 		copy(k, requestedArray)
-		result = append(result, k)
+		result = append(result, &step{
+			List: k,
+			Why:  "Starting Position",
+		})
 
 		for swapped {
 			swapped = false
@@ -60,11 +68,21 @@ func Bubble(w http.ResponseWriter, r *http.Request) {
 					requestedArray[i-1], requestedArray[i] = requestedArray[i], requestedArray[i-1]
 					k := make([]*item, length)
 					copy(k, requestedArray)
-					result = append(result, k)
+					result = append(result, &step{
+						List: k,
+						Why:  fmt.Sprintf("%d < %d, flip!", requestedArray[i-1].Value, requestedArray[i].Value),
+					})
 					swapped = true
 				}
 			}
 		}
+
+		k = make([]*item, length)
+		copy(k, requestedArray)
+		result = append(result, &step{
+			List: k,
+			Why:  "Done!",
+		})
 
 		//fmt.Println(result)
 

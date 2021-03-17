@@ -18,6 +18,10 @@
   box-shadow: 2px 2px 4px #e8e8e8;
 
   height: 70%;
+
+  @apply overflow-x-scroll;
+  @apply overflow-y-hidden;
+  @apply flex-auto;
 }
 
 .bg {

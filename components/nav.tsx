@@ -11,7 +11,11 @@ export function Nav() {
             <Toolbar>
                 <Link href="/">
                     <a><Typography variant="h4"
-                                   style={{paddingRight: "40px", fontWeight: "bold", ...Pangolin}}>
+                                   style={{
+                                       paddingRight: "40px", fontWeight: "bold",
+                                       ...Pangolin,
+                                       color: "#ec5c5c"
+                                   }}>
                         {NAME}
                     </Typography></a>
                 </Link>

@@ -1,1 +1,1 @@
-export const NAME = "Figurify"
+export const NAME = "Figurify";

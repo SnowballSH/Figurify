@@ -6,7 +6,7 @@ import {Nav} from "../components/nav";
 import styles from "../styles/sort.module.scss";
 import {Button, IconButton, Typography} from "@material-ui/core";
 
-import {ItemIterator, noBorder, OpenSans} from "../helpers/helper";
+import {ItemIterator, noBorder, OpenSans, Roboto} from "../helpers/helper";
 
 import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
@@ -16,17 +16,21 @@ import {NAME} from "../config/config";
 
 export default function BubblePage() {
     const [items, setItems] = useState([3, 4, 2, 1, 2] as number[]);
-    const [iter, setIter] = useState(new ItemIterator([] as NumberWithKey[][]));
+    const [iter, setIter] = useState(new ItemIterator([] as Step[]));
     const [current, setCurrent] = useState([] as NumberWithKey[]);
+    const [why, setWhy] = useState("");
 
     useEffect(() => {
-        setCurrent(iter.current);
+        setCurrent(iter.current.list);
+        setWhy(iter.current.why);
     }, [iter]);
 
     function onClickBind(f: () => void): () => void {
         return () => {
             f.bind(iter)();
-            setCurrent(iter.current);
+            setCurrent(iter.current.list);
+            setWhy(iter.current.why);
+            console.log(why);
         };
     }
 
@@ -46,9 +50,17 @@ export default function BubblePage() {
 
             let result = await res.json();
 
-            result = result.map(w => w.map(function (x) {
-                return {n: x.Value, key: x.Key} as NumberWithKey;
-            }));
+            console.log(result);
+
+            result = result.map(function (w) {
+                return {
+                    list: w.List.map(function (x) {
+                            return {n: x.Value, key: x.Key} as NumberWithKey;
+                        }
+                    ),
+                    why: w.Why
+                } as Step;
+            });
 
             setIter(new ItemIterator(result));
         };
@@ -60,19 +72,29 @@ export default function BubblePage() {
         </Head>
         <Nav/>
 
-        <Button style={noBorder} onClick={fetchResult("bubble")}>
-            Bubble Sort
-        </Button>
+        <div className={styles.cardInputDiv}>
+            <Button style={noBorder} className={styles.sortButton} onClick={fetchResult("bubble")}>
+                <Typography className={styles.sortButtonText}>
+                    <b>Bubble Sort</b>
+                </Typography>
+            </Button>
+        </div>
 
         <div className={styles.cardDiv}>
             <FlipMove className={styles.resultDiv}>
-                {current.map((e) =>
+                {current ? current.map((e) =>
                     <div key={e.key} className={styles.resultItem}>
                         <Typography style={{...OpenSans}} className="text-center">
                             {e.n}
                         </Typography>
-                    </div>)}
+                    </div>) : null}
             </FlipMove>
+
+            <div>
+                <Typography style={{...Roboto}}>
+                    {why}
+                </Typography>
+            </div>
 
             <div className={styles.navigation}>
                 <IconButton style={{...noBorder, marginLeft: "10px"}} onClick={onClickBind(iter.start)}>

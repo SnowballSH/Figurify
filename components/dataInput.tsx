@@ -175,7 +175,7 @@ export default class DataInput extends Component<{}, { items: PP[], graph: Chart
                 style={{
                     marginLeft: "80px",
                     paddingRight: "10px", marginRight: "40px"
-                }} className={styles.resultCard + " overflow-scroll flex-auto"}>
+                }} className={styles.resultCard}>
                 <br/>
                 {
                     this.state.graph ?
