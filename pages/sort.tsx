@@ -12,10 +12,11 @@ import NavigateNextIcon from '@material-ui/icons/NavigateNext';
 import NavigateBeforeIcon from '@material-ui/icons/NavigateBefore';
 import LastPageIcon from '@material-ui/icons/LastPage';
 import FirstPageIcon from '@material-ui/icons/FirstPage';
-import {NAME} from "../config/config";
+import {NAME, SortDefault} from "../config/config";
+import ListInput from "../components/listInput";
 
 export default function BubblePage() {
-    const [items, setItems] = useState([3, 4, 2, 1, 2] as number[]);
+    const [items, setItems] = useState(SortDefault);
     const [iter, setIter] = useState(new ItemIterator([] as Step[]));
     const [current, setCurrent] = useState([] as NumberWithKey[]);
     const [why, setWhy] = useState("");
@@ -73,6 +74,8 @@ export default function BubblePage() {
         <Nav/>
 
         <div className={styles.cardInputDiv}>
+            <ListInput default={SortDefault} onChange={setItems} />
+
             <Button style={noBorder} className={styles.sortButton} onClick={fetchResult("bubble")}>
                 <Typography className={styles.sortButtonText}>
                     <b>Bubble Sort</b>
