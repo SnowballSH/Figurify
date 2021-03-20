@@ -74,7 +74,9 @@ export default function BubblePage() {
         <Nav/>
 
         <div className={styles.cardInputDiv}>
-            <ListInput default={SortDefault} onChange={setItems} />
+            <ListInput default={SortDefault} onChange={setItems}/>
+
+            <br/>
 
             <Button style={noBorder} className={styles.sortButton} onClick={fetchResult("bubble")}>
                 <Typography className={styles.sortButtonText}>
@@ -94,9 +96,10 @@ export default function BubblePage() {
             </FlipMove>
 
             <div>
-                <Typography style={{...Roboto}}>
+                <Typography style={{...Roboto}} className="text-center">
                     {why}
                 </Typography>
+                <br/>
             </div>
 
             <div className={styles.navigation}>
@@ -114,5 +117,8 @@ export default function BubblePage() {
                 </IconButton>
             </div>
         </div>
+
+        <br/>
+        <br/>
     </div>;
 }

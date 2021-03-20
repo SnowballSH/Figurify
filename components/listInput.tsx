@@ -20,28 +20,35 @@ export default function ListInput(props: { default: number[], onChange: (x: numb
                     setData(k);
                     props.onChange(Object.values(k) as number[]);
                 }}
-                style={{width: "4rem", margin: "1rem"}}
+                style={{
+                    width: "6rem",
+                    margin: "0.8rem", padding: "0.8rem",
+                    backgroundColor: "rgba(201, 255, 218, 0.6)",
+                    borderRadius: "0.5rem"
+                }}
             />)}
         </FlipMove>
 
-        <IconButton style={{...noBorder, marginLeft: "40px"}}
-                    onClick={function () {
-                        let k = {...data};
-                        k[k.length] = 0;
-                        setData(k);
-                        props.onChange(Object.values(k) as number[]);
-                    }}>
-            <Add/>
-        </IconButton>
+        <div className="m-4">
+            <IconButton style={{...noBorder, marginLeft: "40px", backgroundColor: "rgba(255, 200, 0, 0.2)"}}
+                        onClick={function () {
+                            let k = Object.values({...data});
+                            k.push(Math.ceil(Math.random() * 10));
+                            setData(Object.values(k) as number[]);
+                            props.onChange(Object.values(k) as number[]);
+                        }}>
+                <Add/>
+            </IconButton>
 
-        <IconButton style={{...noBorder, marginLeft: "40px"}}
-                    onClick={function (x) {
-                        let k = {...Object.values(data).slice(0, -1)};
-                        setData(k);
-                        props.onChange(Object.values(k) as number[]);
-                    }}>
-            <RemoveIcon/>
-        </IconButton>
+            <IconButton style={{...noBorder, marginLeft: "40px", backgroundColor: "rgba(255, 200, 0, 0.2)"}}
+                        onClick={function () {
+                            let k = {...Object.values(data).slice(0, -1)};
+                            setData(k);
+                            props.onChange(Object.values(k) as number[]);
+                        }}>
+                <RemoveIcon/>
+            </IconButton>
+        </div>
 
     </div>;
 }
