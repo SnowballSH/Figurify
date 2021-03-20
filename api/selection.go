@@ -7,8 +7,7 @@ import (
 	"time"
 )
 
-func Bubble(w http.ResponseWriter, r *http.Request) {
-
+func Selection(w http.ResponseWriter, r *http.Request) {
 	type item struct {
 		Value int
 		Key   int
@@ -50,8 +49,6 @@ func Bubble(w http.ResponseWriter, r *http.Request) {
 			})
 		}
 
-		swapped := true
-
 		var result []*step
 		length := len(requestedArray)
 
@@ -62,19 +59,22 @@ func Bubble(w http.ResponseWriter, r *http.Request) {
 			Why:  "Starting Position",
 		})
 
-		for swapped {
-			swapped = false
-			for i := 1; i < len(requestedArray); i++ {
-				if requestedArray[i-1].Value > requestedArray[i].Value {
-					requestedArray[i-1], requestedArray[i] = requestedArray[i], requestedArray[i-1]
-					k := make([]*item, length)
-					copy(k, requestedArray)
-					result = append(result, &step{
-						List: k,
-						Why:  fmt.Sprintf("%d < %d, flip!", requestedArray[i-1].Value, requestedArray[i].Value),
-					})
-					swapped = true
+		for i := 0; i < len(requestedArray)-1; i++ {
+			min := i
+			for j := i + 1; j < len(requestedArray); j++ {
+				if requestedArray[j].Value < requestedArray[min].Value {
+					min = j
 				}
+			}
+
+			requestedArray[i], requestedArray[min] = requestedArray[min], requestedArray[i]
+			k := make([]*item, length)
+			copy(k, requestedArray)
+			if i != min {
+				result = append(result, &step{
+					List: k,
+					Why:  fmt.Sprintf("%d is the smallest, swap it to the front!", requestedArray[i].Value),
+				})
 			}
 		}
 

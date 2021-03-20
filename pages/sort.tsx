@@ -83,6 +83,12 @@ export default function BubblePage() {
                     <b>Bubble Sort</b>
                 </Typography>
             </Button>
+
+            <Button style={noBorder} className={styles.sortButton} onClick={fetchResult("selection")}>
+                <Typography className={styles.sortButtonText}>
+                    <b>Selection Sort</b>
+                </Typography>
+            </Button>
         </div>
 
         <div className={styles.cardDiv}>
