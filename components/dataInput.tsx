@@ -120,7 +120,7 @@ export default class DataInput extends Component<{}, { items: PP[], graph: Chart
     }
 
     render() {
-        return <div className={styles.bg}>
+        return <div className={styles.bg} style={{maxWidth: "100%"}}>
             <div className="space-x-10 space-y-4 ml-4" style={{flex: "35%"}}>
                 <Container className={styles.inputCard}
                            style={

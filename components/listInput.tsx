@@ -23,14 +23,14 @@ export default function ListInput(props: { default: number[], onChange: (x: numb
                 style={{
                     width: "6rem",
                     margin: "0.8rem", padding: "0.8rem",
-                    backgroundColor: "rgba(201, 255, 218, 0.6)",
+                    backgroundColor: "rgba(201, 255, 218, 0.8)",
                     borderRadius: "0.5rem"
                 }}
             />)}
         </FlipMove>
 
         <div className="m-4">
-            <IconButton style={{...noBorder, marginLeft: "40px", backgroundColor: "rgba(255, 200, 0, 0.2)"}}
+            <IconButton style={{...noBorder, marginLeft: "40px", backgroundColor: "rgba(0, 100, 0, 0.07)"}}
                         onClick={function () {
                             let k = Object.values({...data});
                             k.push(Math.ceil(Math.random() * 10));
@@ -40,7 +40,7 @@ export default function ListInput(props: { default: number[], onChange: (x: numb
                 <Add/>
             </IconButton>
 
-            <IconButton style={{...noBorder, marginLeft: "40px", backgroundColor: "rgba(255, 200, 0, 0.2)"}}
+            <IconButton style={{...noBorder, marginLeft: "40px", backgroundColor: "rgba(0, 100, 0, 0.07)"}}
                         onClick={function () {
                             let k = {...Object.values(data).slice(0, -1)};
                             setData(k);

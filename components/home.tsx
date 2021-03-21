@@ -18,6 +18,7 @@ export default function HomePage() {
                         Figurify The Algorithms
                     </Box>
                 </Typography>
+                <br/>
                 <Typography variant={"h2"}>
                     Right in your browser!
                 </Typography>

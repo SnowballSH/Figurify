@@ -13,14 +13,72 @@ Router.events.on('routeChangeError', () => NProgress.done());
 import {ThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import {NAME} from "../config/config";
 
+const dFont = [
+    'Chilanka',
+    'cursive',
+].join(',');
+
 const theme = createMuiTheme({
     typography: {
-        fontFamily: [
-            'Chilanka',
-            'cursive',
-        ].join(','),
+        fontFamily: dFont,
     },
 });
+
+theme.typography.h6 = {
+    fontFamily: dFont,
+    fontSize: '1rem',
+    [theme.breakpoints.up('xs')]: {
+        fontSize: '0.9rem',
+    },
+    [theme.breakpoints.up('sm')]: {
+        fontSize: '1.2rem',
+    },
+    [theme.breakpoints.up('md')]: {
+        fontSize: '1.5rem',
+    },
+};
+
+theme.typography.h4 = {
+    fontFamily: dFont,
+    fontSize: '1.8rem',
+    [theme.breakpoints.up('xs')]: {
+        fontSize: '1.5rem',
+    },
+    [theme.breakpoints.up('sm')]: {
+        fontSize: '2rem',
+    },
+    [theme.breakpoints.up('md')]: {
+        fontSize: '2.5rem',
+    },
+};
+
+theme.typography.h2 = {
+    fontFamily: dFont,
+    fontSize: '4rem',
+    [theme.breakpoints.up('xs')]: {
+        fontSize: '2.6rem',
+    },
+    [theme.breakpoints.up('sm')]: {
+        fontSize: '3.8rem',
+    },
+    [theme.breakpoints.up('md')]: {
+        fontSize: '4.3rem',
+    },
+};
+
+theme.typography.h1 = {
+    fontFamily: dFont,
+    fontSize: '5rem',
+    [theme.breakpoints.up('xs')]: {
+        fontSize: '3.4rem',
+    },
+    [theme.breakpoints.up('sm')]: {
+        fontSize: '4.8rem',
+    },
+    [theme.breakpoints.up('md')]: {
+        fontSize: '6rem',
+    },
+};
 
 function MyApp({Component, pageProps}) {
     return <>
