@@ -28,7 +28,7 @@ theme.typography.h6 = {
     fontFamily: dFont,
     fontSize: '1rem',
     [theme.breakpoints.up('xs')]: {
-        fontSize: '0.9rem',
+        fontSize: '0.8rem',
     },
     [theme.breakpoints.up('sm')]: {
         fontSize: '1.2rem',
@@ -45,10 +45,24 @@ theme.typography.h4 = {
         fontSize: '1.5rem',
     },
     [theme.breakpoints.up('sm')]: {
-        fontSize: '2rem',
+        fontSize: '1.9rem',
     },
     [theme.breakpoints.up('md')]: {
+        fontSize: '2.3rem',
+    },
+};
+
+theme.typography.h3 = {
+    fontFamily: dFont,
+    fontSize: '2.6rem',
+    [theme.breakpoints.up('xs')]: {
+        fontSize: '2rem',
+    },
+    [theme.breakpoints.up('sm')]: {
         fontSize: '2.5rem',
+    },
+    [theme.breakpoints.up('md')]: {
+        fontSize: '3.2rem',
     },
 };
 

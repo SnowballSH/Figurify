@@ -27,11 +27,11 @@
   background: -moz-linear-gradient(150deg, #e0e7ff 18%, #d2dbfc 77%);
   background: -webkit-linear-gradient(150deg, #e0e7ff 18%, #d2dbfc 77%);
 
-  @apply p-8;
+  @apply p-7
 }
 
 .sortButtonText {
-  @apply m-3;
+  // @apply m-5;
   @apply p-1;
 }
 

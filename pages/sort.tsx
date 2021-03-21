@@ -78,15 +78,21 @@ export default function BubblePage() {
 
             <br/>
 
-            <Button style={noBorder} className={styles.sortButton} onClick={fetchResult("bubble")}>
+            <Button style={{...noBorder}} className={styles.sortButton} onClick={fetchResult("bubble")}>
                 <Typography className={styles.sortButtonText}>
                     <b>Bubble Sort</b>
                 </Typography>
             </Button>
 
-            <Button style={noBorder} className={styles.sortButton} onClick={fetchResult("selection")}>
+            <Button style={{...noBorder, marginLeft: "20px"}} className={styles.sortButton} onClick={fetchResult("selection")}>
                 <Typography className={styles.sortButtonText}>
                     <b>Selection Sort</b>
+                </Typography>
+            </Button>
+
+            <Button style={{...noBorder, marginLeft: "20px"}} className={styles.sortButton} onClick={fetchResult("insertion")}>
+                <Typography className={styles.sortButtonText}>
+                    <b>Insertion Sort</b>
                 </Typography>
             </Button>
         </div>
