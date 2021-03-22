@@ -1,12 +1,22 @@
 import dynamic from "next/dynamic";
-import {Typography, Box, Card, CardContent} from "@material-ui/core";
+import {Typography, Box, Card, CardContent, Button} from "@material-ui/core";
 
 import styles from "../styles/home.module.scss";
+import {useEffect, useState} from "react";
+import {Pangolin} from "../helpers/helper";
+import Link from "next/link";
+import Image from 'next/image';
 
 const ParticlesBg = dynamic(import('particles-bg'), {ssr: false});
 const Chart = dynamic(import('react-apexcharts'), {ssr: false});
 
 export default function HomePage() {
+    const [clientWindow, setWindow] = useState(null as Window);
+
+    useEffect(() => {
+        setWindow(window);
+    }, []);
+
     return <div className="overflow-hidden ">
         <div style={{minHeight: "calc(100vh - 64px)", width: "100vw", maxWidth: "100%"}}>
             <ParticlesBg num={2} type="fountain" bg={true}/>
@@ -32,15 +42,15 @@ export default function HomePage() {
                 </Typography>
             </div>
 
-            <div className="text-center pl-20 pr-20">
+            <div className="text-center pl-14 pr-14">
                 <Card className="p-5">
                     <CardContent>
                         <Typography variant={"h3"} className="font-bold">
                             Visualize 2D Data
                         </Typography>
                     </CardContent>
-                    <div style={{display: typeof window !== "undefined" && window.innerWidth > 800 ? "flex" : "inherit"}}>
-                        <div>
+                    <div style={{display: clientWindow && clientWindow.innerWidth > 800 ? "flex" : "inherit"}}>
+                        <div style={{overflow: clientWindow && clientWindow.innerWidth > 800 ? "inherit" : "scroll"}}>
                             <Chart options={{
                                 chart: {
                                     id: 'apexchart-example'
@@ -55,11 +65,92 @@ export default function HomePage() {
                         </div>
                         <CardContent>
                             <Typography variant={"h5"} className="font-bold">
-                                Figurify allows you to create interactive, downloadable graphs with simple clicks.
+                                <br/>
+
+                                Figurify allows you to create interactive, resizable, downloadable graphs with simple
+                                clicks.
+
+                                <br/>
+                                <br/>
+
+                                Just type in some x and y value pairs, and the graph is there!
                             </Typography>
+
+                            <br/>
+                            <br/>
+
+                            <Link href="/data">
+                                <Button variant="contained"><Typography variant="h6" style={{...Pangolin}}>
+                                    Visualize Data
+                                </Typography></Button>
+                            </Link>
                         </CardContent>
                     </div>
                 </Card>
+
+                <br/>
+                <br/>
+                <br/>
+
+                <Card className="p-5">
+                    <CardContent>
+                        <Typography variant={"h3"} className="font-bold">
+                            Visualize Sorting Algorithms
+                        </Typography>
+                    </CardContent>
+                    <div>
+                        <CardContent>
+                            <Typography variant={"h5"} className="font-bold">
+                                <Image
+                                    src="/sorting_demo.gif"
+                                    alt="Sorting Demo"
+                                    width={1303 * .6}
+                                    height={442 * .6}>
+
+                                </Image>
+
+                                <br/>
+                                <br/>
+
+                                Figurify shows you the process of a sorting algorithm and explains every step for you.
+
+                                <br/>
+                                <br/>
+
+                                Now you can jump into the computer's core and see what it is doing!
+                            </Typography>
+
+                            <br/>
+                            <br/>
+
+                            <Link href="/sort">
+                                <Button variant="contained"><Typography variant="h6" style={{...Pangolin}}>
+                                    Visualize Sorting Algorithms
+                                </Typography></Button>
+                            </Link>
+                        </CardContent>
+                    </div>
+                </Card>
+
+                <br/>
+                <br/>
+                <br/>
+
+                <Card className="p-5">
+                    <br/>
+                    <CardContent>
+                        <Typography variant={"h3"}>
+                            <b>Interested?</b>
+                            <br/>
+                            <br/>
+                            Scroll up and click a tool you want to use!
+                        </Typography>
+                    </CardContent>
+                </Card>
+
+                <br/>
+                <br/>
+                <br/>
             </div>
         </div>
     </div>;
