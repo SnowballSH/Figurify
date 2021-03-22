@@ -1,8 +1,6 @@
-<div style="text-align: center;">
+<div align="center">
 
 ![Figurify Logo](public/figurify_final.png)
-
-<br />
 
 ## Figurify The Algorithms
 ## Right in your browser!
