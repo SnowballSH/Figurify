@@ -2,8 +2,11 @@
 
 ![Figurify Logo](public/figurify_final.png)
 
-## Figurify The Algorithms
-## Right in your browser!
+![GitHub repo size](https://img.shields.io/github/repo-size/SnowballSH/Figurify)
+
+<br>
+
+# Figurify the algorithms, right in your browser!
 
 #### [Website](https://figurify.vercel.app/)
 
