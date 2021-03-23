@@ -30,7 +30,7 @@ export default function ListInput(props: { default: number[], onChange: (x: numb
         </FlipMove>
 
         <div className="m-4">
-            <IconButton style={{...noBorder, marginLeft: "40px", backgroundColor: "rgba(0, 200, 0, 0.07)"}}
+            <IconButton style={{...noBorder, backgroundColor: "rgba(0, 200, 0, 0.07)"}}
                         onClick={function () {
                             let k = Object.values({...data});
                             k.push(Math.ceil(Math.random() * 10));

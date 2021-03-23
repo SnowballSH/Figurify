@@ -1,3 +1,3 @@
 module github.com/SnowballSH/See-The-Code
 
-go 1.15
+go 1.16

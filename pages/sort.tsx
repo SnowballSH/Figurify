@@ -95,12 +95,22 @@ export default function BubblePage() {
                     <b>Insertion Sort</b>
                 </Typography>
             </Button>
+
+            <Button style={{...noBorder, marginLeft: "20px"}} className={styles.sortButton} onClick={fetchResult("quick")}>
+                <Typography className={styles.sortButtonText}>
+                    <b>Quick Sort</b>
+                </Typography>
+            </Button>
         </div>
 
         <div className={styles.cardDiv}>
             <FlipMove className={styles.resultDiv}>
                 {current ? current.map((e) =>
-                    <div key={e.key} className={styles.resultItem}>
+                    <div key={e.key} className={styles.resultItem} style={
+                        {
+                            height: String(Math.min(e.n + 3, 20)) + "rem",
+                        }
+                    }>
                         <Typography style={{...OpenSans}} className="text-center">
                             {e.n}
                         </Typography>
