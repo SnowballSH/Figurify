@@ -51,6 +51,7 @@ interface ChartProp {
 interface NumberWithKey {
     n: number
     key: number
+    color: string
 }
 
 interface Step {

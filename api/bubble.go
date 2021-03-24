@@ -12,6 +12,7 @@ func Bubble(w http.ResponseWriter, r *http.Request) {
 	type item struct {
 		Value int
 		Key   int
+		Color string
 	}
 
 	type step struct {
@@ -47,39 +48,62 @@ func Bubble(w http.ResponseWriter, r *http.Request) {
 			requestedArray = append(requestedArray, &item{
 				Value: x,
 				Key:   i,
+				Color: "#fce8d8",
 			})
+		}
+
+		var copyItems = func() (res []*item) {
+			for _, x := range requestedArray {
+				res = append(res, &item{
+					Value: x.Value,
+					Key:   x.Key,
+					Color: x.Color,
+				})
+			}
+			return res
 		}
 
 		swapped := true
 
 		var result []*step
-		length := len(requestedArray)
 
-		k := make([]*item, length)
-		copy(k, requestedArray)
+		k := copyItems()
 		result = append(result, &step{
 			List: k,
 			Why:  "Starting Position",
 		})
 
-		for swapped {
+		for j := 0; swapped; j++ {
 			swapped = false
 			for i := 1; i < len(requestedArray); i++ {
 				if requestedArray[i-1].Value > requestedArray[i].Value {
 					requestedArray[i-1], requestedArray[i] = requestedArray[i], requestedArray[i-1]
-					k := make([]*item, length)
-					copy(k, requestedArray)
+					k := copyItems()
+					k[i-1].Color = "#c0deff"
+					k[i].Color = "#c0deff"
 					result = append(result, &step{
 						List: k,
 						Why:  fmt.Sprintf("%d < %d, flip!", requestedArray[i-1].Value, requestedArray[i].Value),
 					})
 					swapped = true
+				} else {
+					k := copyItems()
+					k[i-1].Color = "#c0deff"
+					k[i].Color = "#c0deff"
+					result = append(result, &step{
+						List: k,
+						Why:  fmt.Sprintf("%d >= %d, ignore.", requestedArray[i].Value, requestedArray[i-1].Value),
+					})
 				}
 			}
+			k := copyItems()
+			result = append(result, &step{
+				List: k,
+				Why:  fmt.Sprintf("Iteration #%d over!", j+1),
+			})
 		}
 
-		k = make([]*item, length)
-		copy(k, requestedArray)
+		k = copyItems()
 		result = append(result, &step{
 			List: k,
 			Why:  "Done!",

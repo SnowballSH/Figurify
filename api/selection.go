@@ -11,6 +11,7 @@ func Selection(w http.ResponseWriter, r *http.Request) {
 	type item struct {
 		Value int
 		Key   int
+		Color string
 	}
 
 	type step struct {
@@ -46,14 +47,24 @@ func Selection(w http.ResponseWriter, r *http.Request) {
 			requestedArray = append(requestedArray, &item{
 				Value: x,
 				Key:   i,
+				Color: "#fce8d8",
 			})
 		}
 
-		var result []*step
-		length := len(requestedArray)
+		var copyItems = func() (res []*item) {
+			for _, x := range requestedArray {
+				res = append(res, &item{
+					Value: x.Value,
+					Key:   x.Key,
+					Color: x.Color,
+				})
+			}
+			return res
+		}
 
-		k := make([]*item, length)
-		copy(k, requestedArray)
+		var result []*step
+
+		k := copyItems()
 		result = append(result, &step{
 			List: k,
 			Why:  "Starting Position",
@@ -68,8 +79,14 @@ func Selection(w http.ResponseWriter, r *http.Request) {
 			}
 
 			requestedArray[i], requestedArray[min] = requestedArray[min], requestedArray[i]
-			k := make([]*item, length)
-			copy(k, requestedArray)
+			k := copyItems()
+			k[min].Color = "#c0deff"
+			k[i].Color = "#c0deff"
+			for j, x := range k {
+				if j < i {
+					x.Color = "#dfffc0"
+				}
+			}
 			if i != min {
 				result = append(result, &step{
 					List: k,
@@ -78,8 +95,7 @@ func Selection(w http.ResponseWriter, r *http.Request) {
 			}
 		}
 
-		k = make([]*item, length)
-		copy(k, requestedArray)
+		k = copyItems()
 		result = append(result, &step{
 			List: k,
 			Why:  "Done!",

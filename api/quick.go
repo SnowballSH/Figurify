@@ -12,6 +12,7 @@ func Quick(w http.ResponseWriter, r *http.Request) {
 	type item struct {
 		Value int
 		Key   int
+		Color string
 	}
 
 	type step struct {
@@ -47,14 +48,24 @@ func Quick(w http.ResponseWriter, r *http.Request) {
 			requestedArray = append(requestedArray, &item{
 				Value: x,
 				Key:   i,
+				Color: "#fce8d8",
 			})
 		}
 
-		var result []*step
-		length := len(requestedArray)
+		var copyItems = func() (res []*item) {
+			for _, x := range requestedArray {
+				res = append(res, &item{
+					Value: x.Value,
+					Key:   x.Key,
+					Color: x.Color,
+				})
+			}
+			return res
+		}
 
-		k := make([]*item, length)
-		copy(k, requestedArray)
+		var result []*step
+
+		k := copyItems()
 		result = append(result, &step{
 			List: k,
 			Why:  "Starting Position",
@@ -86,11 +97,17 @@ func Quick(w http.ResponseWriter, r *http.Request) {
 
 			lastIndex := 1
 
-			k := make([]*item, length)
-			copy(k, requestedArray)
+			k := copyItems()
+			for _, x := range k {
+				for _, v := range a {
+					if v.Key == x.Key && v.Value == x.Value {
+						x.Color = "#dfffc0"
+					}
+				}
+			}
 			result = append(result, &step{
 				List: k,
-				Why:  fmt.Sprintf("Sorting array %d", intA),
+				Why:  fmt.Sprintf("Processing array %d", intA),
 			})
 
 			for i := 1; i < len(a); i++ {
@@ -98,17 +115,36 @@ func Quick(w http.ResponseWriter, r *http.Request) {
 				if it.Value < pi.Value {
 					a[lastIndex], a[i] = a[i], a[lastIndex]
 
+					k := copyItems()
+					for _, x := range k {
+						for _, v := range a {
+							if v.Key == x.Key && v.Value == x.Value {
+								x.Color = "#dfffc0"
+							}
+						}
+					}
+					for _, x := range k {
+						for _, v := range [2]*item{a[i], a[lastIndex]} {
+							if v.Key == x.Key && v.Value == x.Value {
+								x.Color = "#c0deff"
+							}
+						}
+					}
+					for _, x := range k {
+						for _, v := range [1]*item{pi} {
+							if v.Key == x.Key && v.Value == x.Value {
+								x.Color = "#cfc0ff"
+							}
+						}
+					}
+
 					if i != lastIndex {
-						k := make([]*item, length)
-						copy(k, requestedArray)
 						result = append(result, &step{
 							List: k,
 							Why: fmt.Sprintf("%d < pivot(%d), swap it to lastIndex(%d)th position.",
 								it.Value, pi.Value, lastIndex),
 						})
 					} else {
-						k := make([]*item, length)
-						copy(k, requestedArray)
 						result = append(result, &step{
 							List: k,
 							Why: fmt.Sprintf("%d < pivot(%d), but no need to swap.",
@@ -122,17 +158,22 @@ func Quick(w http.ResponseWriter, r *http.Request) {
 
 			a[lastIndex-1], a[0] = a[0], a[lastIndex-1]
 
+			k = copyItems()
+
 			if lastIndex-1 != 0 {
-				k = make([]*item, length)
-				copy(k, requestedArray)
+				for _, x := range k {
+					for _, v := range [2]*item{a[0], a[lastIndex-1]} {
+						if v.Key == x.Key && v.Value == x.Value {
+							x.Color = "#c0deff"
+						}
+					}
+				}
 				result = append(result, &step{
 					List: k,
 					Why: fmt.Sprintf("Swap the first element with the lastIndex-1(%d)th element. Array %d processed!",
 						lastIndex-1, intA),
 				})
 			} else {
-				k = make([]*item, length)
-				copy(k, requestedArray)
 				result = append(result, &step{
 					List: k,
 					Why:  fmt.Sprintf("No changes made. Array %d processed!", intA),
@@ -147,8 +188,7 @@ func Quick(w http.ResponseWriter, r *http.Request) {
 
 		quicksort(requestedArray)
 
-		k = make([]*item, length)
-		copy(k, requestedArray)
+		k = copyItems()
 		result = append(result, &step{
 			List: k,
 			Why:  "Done!",

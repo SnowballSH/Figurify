@@ -12,6 +12,7 @@ func Insertion(w http.ResponseWriter, r *http.Request) {
 	type item struct {
 		Value int
 		Key   int
+		Color string
 	}
 
 	type step struct {
@@ -47,14 +48,24 @@ func Insertion(w http.ResponseWriter, r *http.Request) {
 			requestedArray = append(requestedArray, &item{
 				Value: x,
 				Key:   i,
+				Color: "#fce8d8",
 			})
 		}
 
-		var result []*step
-		length := len(requestedArray)
+		var copyItems = func() (res []*item) {
+			for _, x := range requestedArray {
+				res = append(res, &item{
+					Value: x.Value,
+					Key:   x.Key,
+					Color: x.Color,
+				})
+			}
+			return res
+		}
 
-		k := make([]*item, length)
-		copy(k, requestedArray)
+		var result []*step
+
+		k := copyItems()
 		result = append(result, &step{
 			List: k,
 			Why:  "Starting Position",
@@ -72,20 +83,26 @@ func Insertion(w http.ResponseWriter, r *http.Request) {
 			ww := requestedArray[j+1]
 			requestedArray[j+1] = key
 
+			k := copyItems()
+			k[i].Color = "#c0deff"
+			k[j+1].Color = "#c0deff"
 			if i != j+1 {
-				k = make([]*item, length)
-				copy(k, requestedArray)
 				result = append(result, &step{
 					List: k,
 					Why: fmt.Sprintf("%d < %d, insert %d before %d!",
 						key.Value, ww.Value,
 						key.Value, ww.Value),
 				})
+			} else {
+				result = append(result, &step{
+					List: k,
+					Why: fmt.Sprintf("%d is already the largest, ignore it.",
+						key.Value),
+				})
 			}
 		}
 
-		k = make([]*item, length)
-		copy(k, requestedArray)
+		k = copyItems()
 		result = append(result, &step{
 			List: k,
 			Why:  "Done!",

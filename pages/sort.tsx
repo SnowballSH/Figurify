@@ -56,7 +56,7 @@ export default function BubblePage() {
             result = result.map(function (w) {
                 return {
                     list: w.List.map(function (x) {
-                            return {n: x.Value, key: x.Key} as NumberWithKey;
+                            return {n: x.Value, key: x.Key, color: x.Color} as NumberWithKey;
                         }
                     ),
                     why: w.Why
@@ -84,19 +84,22 @@ export default function BubblePage() {
                 </Typography>
             </Button>
 
-            <Button style={{...noBorder, marginLeft: "20px"}} className={styles.sortButton} onClick={fetchResult("selection")}>
+            <Button style={{...noBorder, marginLeft: "20px"}} className={styles.sortButton}
+                    onClick={fetchResult("selection")}>
                 <Typography className={styles.sortButtonText}>
                     <b>Selection Sort</b>
                 </Typography>
             </Button>
 
-            <Button style={{...noBorder, marginLeft: "20px"}} className={styles.sortButton} onClick={fetchResult("insertion")}>
+            <Button style={{...noBorder, marginLeft: "20px"}} className={styles.sortButton}
+                    onClick={fetchResult("insertion")}>
                 <Typography className={styles.sortButtonText}>
                     <b>Insertion Sort</b>
                 </Typography>
             </Button>
 
-            <Button style={{...noBorder, marginLeft: "20px"}} className={styles.sortButton} onClick={fetchResult("quick")}>
+            <Button style={{...noBorder, marginLeft: "20px"}} className={styles.sortButton}
+                    onClick={fetchResult("quick")}>
                 <Typography className={styles.sortButtonText}>
                     <b>Quick Sort</b>
                 </Typography>
@@ -108,7 +111,10 @@ export default function BubblePage() {
                 {current ? current.map((e) =>
                     <div key={e.key} className={styles.resultItem} style={
                         {
-                            height: String(Math.min(e.n + 3, 20)) + "rem",
+                            height: String(5 + 1.1 * current.map(x => x.n).sort(
+                                (a, b) => a - b
+                            ).indexOf(e.n)) + "rem",
+                            background: e.color,
                         }
                     }>
                         <Typography style={{...OpenSans}} className="text-center">
