@@ -4,7 +4,7 @@ import Head from "next/head";
 import {Nav} from "../components/nav";
 
 import styles from "../styles/sort.module.scss";
-import {Button, IconButton, Typography} from "@material-ui/core";
+import {Button, IconButton, Tooltip, Typography} from "@material-ui/core";
 
 import {ItemIterator, noBorder, OpenSans, Roboto} from "../helpers/helper";
 
@@ -131,18 +131,26 @@ export default function BubblePage() {
             </div>
 
             <div className={styles.navigation}>
-                <IconButton style={{...noBorder, marginLeft: "10px"}} onClick={onClickBind(iter.start)}>
-                    <FirstPageIcon/>
-                </IconButton>
-                <IconButton style={{...noBorder, marginLeft: "10px"}} onClick={onClickBind(iter.back)}>
-                    <NavigateBeforeIcon/>
-                </IconButton>
-                <IconButton style={{...noBorder, marginLeft: "10px"}} onClick={onClickBind(iter.next)}>
-                    <NavigateNextIcon/>
-                </IconButton>
-                <IconButton style={{...noBorder, marginLeft: "10px"}} onClick={onClickBind(iter.end)}>
-                    <LastPageIcon/>
-                </IconButton>
+                <Tooltip title="Reset">
+                    <IconButton style={{...noBorder, marginLeft: "10px"}} onClick={onClickBind(iter.start)}>
+                        <FirstPageIcon/>
+                    </IconButton>
+                </Tooltip>
+                <Tooltip title="Previous Step">
+                    <IconButton style={{...noBorder, marginLeft: "10px"}} onClick={onClickBind(iter.back)}>
+                        <NavigateBeforeIcon/>
+                    </IconButton>
+                </Tooltip>
+                <Tooltip title="Next Step">
+                    <IconButton style={{...noBorder, marginLeft: "10px"}} onClick={onClickBind(iter.next)}>
+                        <NavigateNextIcon/>
+                    </IconButton>
+                </Tooltip>
+                <Tooltip title="Last Step">
+                    <IconButton style={{...noBorder, marginLeft: "10px"}} onClick={onClickBind(iter.end)}>
+                        <LastPageIcon/>
+                    </IconButton>
+                </Tooltip>
             </div>
         </div>
 

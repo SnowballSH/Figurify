@@ -12,6 +12,7 @@ Router.events.on('routeChangeError', () => NProgress.done());
 
 import {ThemeProvider, createMuiTheme} from '@material-ui/core/styles';
 import {NAME} from "../config/config";
+import {Roboto} from "../helpers/helper";
 
 const dFont = [
     'Chilanka',
@@ -22,6 +23,11 @@ const theme = createMuiTheme({
     typography: {
         fontFamily: dFont,
     },
+    overrides: {
+        MuiTooltip: {
+            tooltip: Roboto
+        }
+    }
 });
 
 theme.typography.h6 = {

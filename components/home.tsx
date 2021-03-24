@@ -104,8 +104,8 @@ export default function HomePage() {
                                 <Image
                                     src="/sorting_demo.gif"
                                     alt="Sorting Demo"
-                                    width={1303 * .6}
-                                    height={442 * .6}>
+                                    width={1199 * .7}
+                                    height={493 * .7}>
 
                                 </Image>
 
