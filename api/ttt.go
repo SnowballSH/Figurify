@@ -3,6 +3,7 @@ package api
 import (
 	"encoding/json"
 	"fmt"
+	"math"
 	"net/http"
 	"time"
 
@@ -105,9 +106,12 @@ func (board *TictactoeBoard) analyze() float64 {
 }
 
 func iterate(board *TictactoeBoard, node *mm.Node, player int) {
-	if board.IsFull() {
+	if board.IsFull() || board.Winner() != nil {
 		res := board.analyze()
 		node.Value = &res
+		node.Eval = func() float64 {
+			return res
+		}
 		return
 	}
 
@@ -161,7 +165,9 @@ func TTT(w http.ResponseWriter, r *http.Request) {
 		}
 		iterate(board, node, resp.Player)
 
-		node.FriendlyMinimax(3)
+		depth := 3
+
+		node.Minimax(int8(resp.Player-1), depth, math.Inf(-1), math.Inf(1))
 
 		type ResultT struct {
 			Move     interface{}

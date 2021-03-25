@@ -1,4 +1,4 @@
-import {useState} from "react";
+import {useEffect, useState} from "react";
 import Head from 'next/head';
 import {Nav} from "../components/nav";
 import {NAME} from "../config/config";
@@ -25,6 +25,10 @@ export default function MinimaxPage() {
     ) as number[][]);
     const [player, setPlayer] = useState(1);
     const [result, setResult] = useState({} as resultFromGo);
+
+    useEffect(() => {
+        fetchResult("ttt")()
+    }, [board])
 
     function fetchResult(name_: string): () => Promise<void> {
         return async () => {
@@ -56,7 +60,17 @@ export default function MinimaxPage() {
 
     function toJSX(ele: resultFromGo, last: number = -1, key: number = 0) {
         return [
-            <TreeItem key={key} nodeId={String(last++)} label={`Move ${ele.Move} has score ${ele.Score}`}>
+            <TreeItem key={key} nodeId={String(last++)} label=
+                {
+                    `#${ele.Move+1}: ` + (ele.Children ?
+                    `Best Move: ${
+                        Object.values(ele.Children.filter(
+                            x => x.Score === ele.Score
+                        ).map(x => x.Move+1)).join(", ")
+                } Score: ${ele.Score}`
+                : `Score: ${ele.Score}`)
+                }
+            >
                 {
                     ele.Children ?
                         ele.Children.map(
