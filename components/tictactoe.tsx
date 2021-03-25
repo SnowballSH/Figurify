@@ -1,11 +1,14 @@
-import {useState} from "react";
-import {ButtonBase, Grid, Icon, Paper} from "@material-ui/core";
+import {useEffect, useState} from "react";
+import {ButtonBase, Grid, Paper} from "@material-ui/core";
 import {noBorder} from "../helpers/helper";
 
 import StarsIcon from '@material-ui/icons/Stars';
 import FilterVintageIcon from '@material-ui/icons/FilterVintage';
 
-export function TicTacToe(props: { size: number }) {
+export function TicTacToe(props: {
+    size: number,
+    onBoardChange: (x: number[][]) => void, onPlayerChange: (x: number) => void
+}) {
 
     // 0 = None
     // 1 = P1
@@ -16,6 +19,11 @@ export function TicTacToe(props: { size: number }) {
         )
     ) as number[][]);
     const [current, setCurrent] = useState(1);
+
+    useEffect(() => {
+        props.onBoardChange(board);
+        props.onPlayerChange(current);
+    }, [board]);
 
     return <div>
         {
@@ -63,6 +71,6 @@ export function TicTacToe(props: { size: number }) {
                     </Grid>;
                 }
             ) as JSX.Element[]
-            }
-            </div>;
         }
+    </div>;
+}

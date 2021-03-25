@@ -31,6 +31,12 @@ export function Nav() {
                         Sorting Visualization
                     </Typography></a>
                 </Link>
+
+                <Link href="/minimax">
+                    <a><Typography variant="h6" style={{paddingRight: "40px", ...Pangolin}}>
+                        Minimax Visualization
+                    </Typography></a>
+                </Link>
             </Toolbar>
         </AppBar>
     );

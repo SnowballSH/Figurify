@@ -1,70 +1,110 @@
-import {Component} from "react";
+import {useState} from "react";
 import Head from 'next/head';
 import {Nav} from "../components/nav";
 import {NAME} from "../config/config";
 
-import Tree from 'react-d3-tree';
-
-import styles from '../styles/minimax.module.scss'
-import {ButtonBase, Grid, Icon, Paper} from "@material-ui/core";
+import styles from '../styles/minimax.module.scss';
 import {TicTacToe} from "../components/tictactoe";
 
-const orgChart = {
-    name: 'CEO',
-    children: [
-        {
-            name: 'Manager',
-            attributes: {
-                department: 'Production',
-            },
-            children: [
-                {
-                    name: 'Foreman',
-                    attributes: {
-                        department: 'Fabrication',
-                    },
-                    children: [
-                        {
-                            name: 'Worker',
-                        },
-                    ],
-                },
-                {
-                    name: 'Foreman',
-                    attributes: {
-                        department: 'Assembly',
-                    },
-                    children: [
-                        {
-                            name: 'Worker',
-                        },
-                    ],
-                },
-            ],
-        },
-    ],
-};
+import {TreeView, TreeItem} from '@material-ui/lab';
+import {Button, Typography} from "@material-ui/core";
+import FilterVintageIcon from "@material-ui/icons/FilterVintage";
+import StarsIcon from "@material-ui/icons/Stars";
 
-export default class MinimaxPage extends Component<any, any> {
-    constructor(props) {
-        super(props);
+interface resultFromGo {
+    Move: number | null,
+    Score: number,
+    Children: resultFromGo[]
+}
+
+export default function MinimaxPage() {
+    const [board, setBoard] = useState(Array.from({length: 3},
+        () => Array.from({length: 3},
+            () => 0
+        )
+    ) as number[][]);
+    const [player, setPlayer] = useState(1);
+    const [result, setResult] = useState({} as resultFromGo);
+
+    function fetchResult(name_: string): () => Promise<void> {
+        return async () => {
+            let res = await fetch(
+                `/api/${name_}`, {
+                    body: JSON.stringify({
+                        Board: board.flat(),
+                        Player: player,
+                    }),
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    method: 'POST'
+                }
+            );
+
+            if (res.status >= 500) {
+                console.error(await res.text());
+                return;
+            }
+
+            let result = await res.json();
+
+            console.log(result);
+
+            setResult(result as resultFromGo);
+        };
     }
 
-    render() {
-        return (<div>
-            <Head>
-                <title>{NAME} - Data Visualizing</title>
-            </Head>
-            <Nav/>
+    function toJSX(ele: resultFromGo, last: number = -1, key: number = 0) {
+        return [
+            <TreeItem key={key} nodeId={String(last++)} label={`Move ${ele.Move} has score ${ele.Score}`}>
+                {
+                    ele.Children ?
+                        ele.Children.map(
+                            (x, i) => {
+                                let [v, l] = toJSX(x, last, i);
+                                last = l as number;
+                                return v;
+                            }
+                        )
+                        : null
+                }
+            </TreeItem>
+            , last];
+    }
 
-            <div className="m-4">
-                <div className={styles.inputDiv}>
-                    <TicTacToe size={4}/>
-                </div>
-                <div className={styles.resultCard}>
-                    <Tree data={orgChart} />
-                </div>
+    return <div>
+        <Head>
+            <title>{NAME} - Data Visualizing</title>
+        </Head>
+        <Nav/>
+
+        <div className="m-4">
+            <div className={styles.inputDiv}>
+                <br/>
+                <br/>
+                <TicTacToe size={3} onBoardChange={setBoard} onPlayerChange={setPlayer}/>
+
+                <Typography variant={"h5"}>
+                    Player {[
+                    " ",
+                    <FilterVintageIcon style={{fontSize: "2vw"}}/>,
+                    <StarsIcon style={{fontSize: "2vw"}}/>
+                ][player]}
+                </Typography>
+
+                <Button onClick={
+                    fetchResult("ttt")
+                }>
+                    Analyze
+                </Button>
             </div>
-        </div>);
-    }
+            <div className={styles.resultCard}>
+                <TreeView>
+                    {
+                        toJSX(result)[0]
+                    }
+                </TreeView>
+            </div>
+        </div>
+    </div>;
 }

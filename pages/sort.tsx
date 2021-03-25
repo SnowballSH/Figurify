@@ -31,7 +31,7 @@ export default function BubblePage() {
             f.bind(iter)();
             setCurrent(iter.current.list);
             setWhy(iter.current.why);
-            console.log(why);
+            //console.log(why);
         };
     }
 
