@@ -2,6 +2,9 @@ import {useState} from "react";
 import {ButtonBase, Grid, Icon, Paper} from "@material-ui/core";
 import {noBorder} from "../helpers/helper";
 
+import StarsIcon from '@material-ui/icons/Stars';
+import FilterVintageIcon from '@material-ui/icons/FilterVintage';
+
 export function TicTacToe(props: { size: number }) {
 
     // 0 = None
@@ -20,35 +23,34 @@ export function TicTacToe(props: { size: number }) {
                 (x, row) => {
                     let cols = x.map(
                         (y, col) => (
-                            <>
-                                <Grid key={col} item>
-                                    <ButtonBase
-                                        style={{...noBorder, margin: "1rem"}}
+                            <Grid key={col} item>
+                                <ButtonBase
+                                    style={{...noBorder, margin: "1vw"}}
+                                >
+                                    <Paper
+                                        onClick={() => {
+                                            if (board[row][col] !== 0) return;
+
+                                            let k = {...board};
+                                            k[row][col] = current;
+                                            setBoard(Object.values(k) as number[][]);
+
+                                            setCurrent(current ^ 3); // 1 -> 2, 2 -> 1
+                                        }}
+                                        elevation={4}
+                                        data-coord={row + ':' + col}
+                                        style={{width: "6vw", height: "6vw", padding: "0.25vw"}}
                                     >
-                                        <Paper
-                                            onClick={() => {
-                                                if (board[row][col] !== 0) return;
-
-                                                let k = {...board};
-                                                k[row][col] = current;
-                                                setBoard(Object.values(k) as number[][]);
-
-                                                setCurrent(current ^ 3); // 1 -> 2, 2 -> 1
-                                            }}
-                                            elevation={4}
-                                            data-coord={row + ':' + col}
-                                            style={{width: "5rem", height: "5rem"}}
-                                        >
-                                            <Icon
-                                                style={{fontSize: 50}}>
-                                                {
-                                                    [" ", "X", "O"][y]
-                                                }
-                                            </Icon>
-                                        </Paper>
-                                    </ButtonBase>
-                                </Grid>
-                            </>
+                                        <div>
+                                            {[
+                                                " ",
+                                                <FilterVintageIcon style={{fontSize: "5.5vw"}}/>,
+                                                <StarsIcon style={{fontSize: "5.5vw"}}/>
+                                            ][y]}
+                                        </div>
+                                    </Paper>
+                                </ButtonBase>
+                            </Grid>
                         )
                     );
                     return <Grid
@@ -61,6 +63,6 @@ export function TicTacToe(props: { size: number }) {
                     </Grid>;
                 }
             ) as JSX.Element[]
+            }
+            </div>;
         }
-    </div>;
-}
