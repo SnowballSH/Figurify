@@ -26,7 +26,7 @@ const theme = createMuiTheme({
     overrides: {
         MuiTooltip: {
             tooltip: Roboto
-        }
+        },
     }
 });
 

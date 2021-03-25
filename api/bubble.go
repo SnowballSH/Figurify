@@ -106,6 +106,12 @@ func Bubble(w http.ResponseWriter, r *http.Request) {
 		k = copyItems()
 		result = append(result, &step{
 			List: k,
+			Why:  fmt.Sprintf("Nothing swapped, which means the array is sorted!"),
+		})
+
+		k = copyItems()
+		result = append(result, &step{
+			List: k,
 			Why:  "Done!",
 		})
 

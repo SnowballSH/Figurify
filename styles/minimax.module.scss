@@ -1,0 +1,18 @@
+.resultCard {
+  background: linear-gradient(13deg, #f8ffed 14%, #e0fff4 73%);
+  background: -moz-linear-gradient(13deg, #f8ffed 14%, #e0fff4 73%);
+  background: -webkit-linear-gradient(13deg, #f8ffed 14%, #e0fff4 73%);
+  border-radius: 10px 10px 10px 10px;
+  box-shadow: 7px 8px 12px #e8e8e8;
+
+  width: 52%;
+  height: 80vh;
+
+  float: left;
+}
+
+.inputDiv {
+  width: 46%;
+
+  float: left;
+}
