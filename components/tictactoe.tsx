@@ -1,9 +1,11 @@
 import {useEffect, useState} from "react";
-import {ButtonBase, Grid, Paper, Tooltip, Typography} from "@material-ui/core";
+import {ButtonBase, Grid, IconButton, Paper, Tooltip, Typography} from "@material-ui/core";
 import {noBorder} from "../helpers/helper";
 
 import StarsIcon from '@material-ui/icons/Stars';
 import FilterVintageIcon from '@material-ui/icons/FilterVintage';
+
+import RotateLeftIcon from '@material-ui/icons/RotateLeft';
 
 export function TicTacToe(props: {
     size: number,
@@ -18,6 +20,7 @@ export function TicTacToe(props: {
             () => 0
         )
     ) as number[][]);
+
     const [current, setCurrent] = useState(1);
 
     const [ended, setEnded] = useState(false);
@@ -76,8 +79,9 @@ export function TicTacToe(props: {
                                                 if (board[row][col] !== 0 || ended) return;
 
                                                 let k = {...board};
+
                                                 k[row][col] = current;
-                                                setBoard(Object.values(k) as number[][]);
+                                                setBoard(Object.values(k) as unknown as number[][]);
 
                                                 setCurrent(current ^ 3); // 1 -> 2, 2 -> 1
                                             }}
@@ -133,6 +137,18 @@ export function TicTacToe(props: {
                         ][current]}'s turn
                         </>
                 }
+                <Tooltip title={"Reset Board"}>
+                    <IconButton style={{...noBorder}} onClick={() => {
+                        setBoard(Array.from({length: props.size},
+                            () => Array.from({length: props.size},
+                                () => 0
+                            )));
+                        setCurrent(1);
+                        setEnded(false);
+                    }}>
+                        <RotateLeftIcon/>
+                    </IconButton>
+                </Tooltip>
             </Typography>
         </div>
     </div>;

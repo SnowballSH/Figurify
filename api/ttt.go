@@ -65,38 +65,38 @@ func (board *TictactoeBoard) Winner() (winner interface{}) {
 	return winner
 }
 
-func (board *TictactoeBoard) analyze() float64 {
+func (board *TictactoeBoard) analyze(rich bool) float64 {
 	score := 0.0
 
-	/*
+	if rich {
 		if board.state[4] == 1 {
-				score += 10
-			} else if board.state[4] == 2 {
-				score -= 10
-			}
+			score += 10
+		} else if board.state[4] == 2 {
+			score -= 10
+		}
 
-			if board.state[0] == 1 {
-				score += 2
-			} else if board.state[0] == 2 {
-				score -= 2
-			}
-			if board.state[2] == 1 {
-				score += 2
-			} else if board.state[2] == 2 {
-				score -= 2
-			}
-			if board.state[6] == 1 {
-				score += 2
-			} else if board.state[6] == 2 {
-				score -= 2
-			}
+		if board.state[0] == 1 {
+			score += 2
+		} else if board.state[0] == 2 {
+			score -= 2
+		}
+		if board.state[2] == 1 {
+			score += 2
+		} else if board.state[2] == 2 {
+			score -= 2
+		}
+		if board.state[6] == 1 {
+			score += 2
+		} else if board.state[6] == 2 {
+			score -= 2
+		}
 
-			if board.state[8] == 1 {
-				score += 2
-			} else if board.state[8] == 2 {
-				score -= 2
-			}
-	*/
+		if board.state[8] == 1 {
+			score += 2
+		} else if board.state[8] == 2 {
+			score -= 2
+		}
+	}
 
 	if winner := board.Winner(); winner == 1 {
 		score = 1000
@@ -109,9 +109,9 @@ func (board *TictactoeBoard) analyze() float64 {
 	return score
 }
 
-func iterate(board *TictactoeBoard, node *mm.Node, player int) {
+func iterate(board *TictactoeBoard, node *mm.Node, player int, rich bool) {
 	if board.IsFull() || board.Winner() != nil {
-		res := board.analyze()
+		res := board.analyze(rich)
 		node.Value = &res
 		node.Eval = func() float64 {
 			return res
@@ -125,11 +125,11 @@ func iterate(board *TictactoeBoard, node *mm.Node, player int) {
 
 		n := &mm.Node{
 			Eval: func() float64 {
-				return board.analyze()
+				return board.analyze(rich)
 			},
 			Info: w,
 		}
-		iterate(b, n, player^3)
+		iterate(b, n, player^3, rich)
 		node.Children = append(node.Children, n)
 	}
 }
@@ -139,6 +139,7 @@ func TTT(w http.ResponseWriter, r *http.Request) {
 		Board  [9]int
 		Player int
 		Depth  int
+		Rich   bool
 	}
 
 	start := time.Now()
@@ -165,10 +166,10 @@ func TTT(w http.ResponseWriter, r *http.Request) {
 
 		node := &mm.Node{
 			Eval: func() float64 {
-				return board.analyze()
+				return board.analyze(resp.Rich)
 			},
 		}
-		iterate(board, node, resp.Player)
+		iterate(board, node, resp.Player, resp.Rich)
 
 		depth := resp.Depth
 

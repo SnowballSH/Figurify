@@ -7,7 +7,7 @@ import styles from '../styles/minimax.module.scss';
 import {TicTacToe} from "../components/tictactoe";
 
 import {TreeView, TreeItem} from '@material-ui/lab';
-import {Button, FormControl, InputLabel, MenuItem, Select, Typography} from "@material-ui/core";
+import {Box, Button, FormControl, InputLabel, MenuItem, Select, Typography} from "@material-ui/core";
 import FlipMove from "react-flip-move";
 import {noBorder, OpenSans} from "../helpers/helper";
 
@@ -15,6 +15,27 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 import FilterVintageIcon from "@material-ui/icons/FilterVintage";
 import StarsIcon from "@material-ui/icons/Stars";
+
+import LinearProgress, {LinearProgressProps} from '@material-ui/core/LinearProgress';
+
+function LinearProgressWithLabel(props: LinearProgressProps & { value: number }) {
+    return (
+        <Box display="flex" alignItems="center">
+            <Box minWidth={35}>
+                <FilterVintageIcon style={{fontSize: "2vw"}}/>
+            </Box>
+            <Box width="100%" mr={1}>
+                <LinearProgress variant="determinate" {...{
+                    ...props, value: 50 + Math.min(Math.max(
+                        (props.value || 0) * 2, -50), 50)
+                }} />
+            </Box>
+            <Box minWidth={35}>
+                <StarsIcon style={{fontSize: "2vw"}}/>
+            </Box>
+        </Box>
+    );
+}
 
 interface resultFromGo {
     Move: number | null,
@@ -35,6 +56,8 @@ export default function MinimaxPage() {
 
     const [depth, setDepth] = useState(4);
 
+    const [rich, setRich] = useState(true);
+
     useEffect(() => {
         fetchResult("ttt")();
     }, [board]);
@@ -53,6 +76,7 @@ export default function MinimaxPage() {
                         Board: board.flat(),
                         Player: player,
                         Depth: depth,
+                        Rich: rich,
                     }),
                     headers: {
                         'Content-Type': 'application/json'
@@ -181,13 +205,10 @@ export default function MinimaxPage() {
                     }
                 </div>
 
-                <Typography variant={"h6"} style={{marginBottom: "1rem", marginTop: "1rem"}}>
-                    1000 means <FilterVintageIcon style={{fontSize: "2vw"}}/> win
-                    <br/>
-                    -1000 means <StarsIcon style={{fontSize: "2vw"}}/> win
-                    <br/>
-                    0 means draw
-                </Typography>
+                <br/>
+                <br/>
+
+                <LinearProgressWithLabel value={result.Score}/>
             </div>
         </div>
     </div>;
