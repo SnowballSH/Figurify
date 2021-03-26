@@ -29,16 +29,20 @@ export default function MinimaxPage() {
     const [player, setPlayer] = useState(1);
     const [result, setResult] = useState({} as resultFromGo);
 
+    const [loading, setLoading] = useState(false);
+
     useEffect(() => {
-        fetchResult("ttt")();
+        fetchResult("ttt")()
     }, [board]);
 
     useEffect(() => {
-        fetchResult("ttt")();
-    });
+        fetchResult("ttt")()
+    }, []);
 
     function fetchResult(name_: string): () => Promise<void> {
         return async () => {
+            setLoading(true)
+
             let res = await fetch(
                 `/api/${name_}`, {
                     body: JSON.stringify({
@@ -59,8 +63,11 @@ export default function MinimaxPage() {
 
             let result = await res.json();
 
-            console.log(result);
+            //console.log(result);
 
+            console.log(loading)
+
+            setLoading(false);
             setResult(result as resultFromGo);
         };
     }
@@ -123,7 +130,9 @@ export default function MinimaxPage() {
                 <div className="text-center">
                     <br/>
                     <Button onClick={
-                        fetchResult("ttt")
+                        () => {
+                            fetchResult("ttt")()
+                        }
                     } style={noBorder} variant={"contained"}>
                         <Typography variant="h6">
                             Analyze Position
@@ -133,7 +142,7 @@ export default function MinimaxPage() {
             </div>
             <div className={styles.resultCard}>
                 {
-                    <TreeView
+                    !loading ? <TreeView
                         defaultCollapseIcon={<ExpandMoreIcon/>}
                         defaultExpandIcon={<ChevronRightIcon/>}>
                         <FlipMove>
@@ -141,7 +150,9 @@ export default function MinimaxPage() {
                                 display()
                             }
                         </FlipMove>
-                    </TreeView>
+                    </TreeView> : <Typography variant={"subtitle2"}>
+                        Loading...
+                    </Typography>
                 }
             </div>
         </div>
