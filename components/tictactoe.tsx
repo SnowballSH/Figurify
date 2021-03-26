@@ -38,6 +38,7 @@ export function TicTacToe(props: {
         props.onPlayerChange(current);
 
         (() => {
+            if (board.flat().filter(x => x === 0).length == 0) setEnded(null);
             let roundWon = false;
             let bo = board.flat();
             for (let i = 0; i <= 7; i++) {
@@ -117,8 +118,8 @@ export function TicTacToe(props: {
             <br/>
             <Typography variant={"h5"}>
                 {
-                    board.flat().filter(x => x === 0).length == 0 ? "Draw!" :
-                        ended ? <>
+                    ended === null ? "Draw!" :
+                        ended === true ? <>
                             Player {[
                             " ",
                             <FilterVintageIcon style={{fontSize: "2vw"}}/>,

@@ -1,4 +1,4 @@
-import {useEffect, useState} from "react";
+import {ChangeEvent, useEffect, useState} from "react";
 import Head from 'next/head';
 import {Nav} from "../components/nav";
 import {NAME} from "../config/config";
@@ -7,12 +7,14 @@ import styles from '../styles/minimax.module.scss';
 import {TicTacToe} from "../components/tictactoe";
 
 import {TreeView, TreeItem} from '@material-ui/lab';
-import {Button, Typography} from "@material-ui/core";
+import {Button, FormControl, InputLabel, MenuItem, Select, Typography} from "@material-ui/core";
 import FlipMove from "react-flip-move";
 import {noBorder, OpenSans} from "../helpers/helper";
 
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import FilterVintageIcon from "@material-ui/icons/FilterVintage";
+import StarsIcon from "@material-ui/icons/Stars";
 
 interface resultFromGo {
     Move: number | null,
@@ -31,23 +33,26 @@ export default function MinimaxPage() {
 
     const [loading, setLoading] = useState(false);
 
+    const [depth, setDepth] = useState(4);
+
     useEffect(() => {
-        fetchResult("ttt")()
+        fetchResult("ttt")();
     }, [board]);
 
     useEffect(() => {
-        fetchResult("ttt")()
+        fetchResult("ttt")();
     }, []);
 
     function fetchResult(name_: string): () => Promise<void> {
         return async () => {
-            setLoading(true)
+            setLoading(true);
 
             let res = await fetch(
                 `/api/${name_}`, {
                     body: JSON.stringify({
                         Board: board.flat(),
                         Player: player,
+                        Depth: depth,
                     }),
                     headers: {
                         'Content-Type': 'application/json'
@@ -65,7 +70,7 @@ export default function MinimaxPage() {
 
             //console.log(result);
 
-            console.log(loading)
+            console.log(loading);
 
             setLoading(false);
             setResult(result as resultFromGo);
@@ -78,7 +83,7 @@ export default function MinimaxPage() {
                 {
                     <Typography variant={"subtitle2"}>
                          <pre style={OpenSans}>
-                             {`#${ele.Move + 1} | Score: ${ele.Score} (${mode === 1 ? "max" : "min"})`}
+                             {`#${ele.Move + 1} | Score: ${ele.Score} (${ele.Children ? (mode === 1 ? "max" : "min") : "end of branch"})`}
                          </pre>
                     </Typography>
                 }
@@ -115,6 +120,10 @@ export default function MinimaxPage() {
             : null;
     }
 
+    const handleChange = (event: ChangeEvent<{ value: unknown }>) => {
+        setDepth(event.target.value as number);
+    };
+
     return <div>
         <Head>
             <title>{NAME} - Minimax Visualizing</title>
@@ -129,31 +138,56 @@ export default function MinimaxPage() {
 
                 <div className="text-center">
                     <br/>
+                    <br/>
+                    <FormControl variant="filled" style={{width: "8rem", height: "6rem", marginRight: "1rem"}}>
+                        <InputLabel id="depth selector">Depth</InputLabel>
+                        <Select
+                            labelId="depth selector"
+                            value={depth}
+                            onChange={handleChange}
+                        >
+                            <MenuItem value={2}>2</MenuItem>
+                            <MenuItem value={3}>3</MenuItem>
+                            <MenuItem value={4}>4</MenuItem>
+                            <MenuItem value={5}>5</MenuItem>
+                            <MenuItem value={6}>6</MenuItem>
+                        </Select>
+                    </FormControl>
                     <Button onClick={
                         () => {
-                            fetchResult("ttt")()
+                            fetchResult("ttt")();
                         }
-                    } style={noBorder} variant={"contained"}>
-                        <Typography variant="h6">
+                    } style={{...noBorder, height: "3.5rem"}} variant={"contained"}>
+                        <Typography variant="subtitle2">
                             Analyze Position
                         </Typography>
                     </Button>
                 </div>
             </div>
             <div className={styles.resultCard}>
-                {
-                    !loading ? <TreeView
-                        defaultCollapseIcon={<ExpandMoreIcon/>}
-                        defaultExpandIcon={<ChevronRightIcon/>}>
-                        <FlipMove>
-                            {
-                                display()
-                            }
-                        </FlipMove>
-                    </TreeView> : <Typography variant={"subtitle2"}>
-                        Loading...
-                    </Typography>
-                }
+                <div className={styles.tree}>
+                    {
+                        !loading ? <TreeView
+                            defaultCollapseIcon={<ExpandMoreIcon/>}
+                            defaultExpandIcon={<ChevronRightIcon/>}>
+                            <FlipMove>
+                                {
+                                    display()
+                                }
+                            </FlipMove>
+                        </TreeView> : <Typography variant={"subtitle2"}>
+                            Loading...
+                        </Typography>
+                    }
+                </div>
+
+                <Typography variant={"h6"} style={{marginBottom: "1rem", marginTop: "1rem"}}>
+                    1000 means <FilterVintageIcon style={{fontSize: "2vw"}}/> win
+                    <br/>
+                    -1000 means <StarsIcon style={{fontSize: "2vw"}}/> win
+                    <br/>
+                    0 means draw
+                </Typography>
             </div>
         </div>
     </div>;

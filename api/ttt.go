@@ -68,33 +68,35 @@ func (board *TictactoeBoard) Winner() (winner interface{}) {
 func (board *TictactoeBoard) analyze() float64 {
 	score := 0.0
 
-	if board.state[4] == 1 {
-		score += 10
-	} else if board.state[4] == 2 {
-		score -= 10
-	}
+	/*
+		if board.state[4] == 1 {
+				score += 10
+			} else if board.state[4] == 2 {
+				score -= 10
+			}
 
-	if board.state[0] == 1 {
-		score += 2
-	} else if board.state[0] == 2 {
-		score -= 2
-	}
-	if board.state[2] == 1 {
-		score += 2
-	} else if board.state[2] == 2 {
-		score -= 2
-	}
-	if board.state[6] == 1 {
-		score += 2
-	} else if board.state[6] == 2 {
-		score -= 2
-	}
+			if board.state[0] == 1 {
+				score += 2
+			} else if board.state[0] == 2 {
+				score -= 2
+			}
+			if board.state[2] == 1 {
+				score += 2
+			} else if board.state[2] == 2 {
+				score -= 2
+			}
+			if board.state[6] == 1 {
+				score += 2
+			} else if board.state[6] == 2 {
+				score -= 2
+			}
 
-	if board.state[8] == 1 {
-		score += 2
-	} else if board.state[8] == 2 {
-		score -= 2
-	}
+			if board.state[8] == 1 {
+				score += 2
+			} else if board.state[8] == 2 {
+				score -= 2
+			}
+	*/
 
 	if winner := board.Winner(); winner == 1 {
 		score = 1000
@@ -136,6 +138,7 @@ func TTT(w http.ResponseWriter, r *http.Request) {
 	var resp struct {
 		Board  [9]int
 		Player int
+		Depth  int
 	}
 
 	start := time.Now()
@@ -167,7 +170,7 @@ func TTT(w http.ResponseWriter, r *http.Request) {
 		}
 		iterate(board, node, resp.Player)
 
-		depth := 4
+		depth := resp.Depth
 
 		node.Minimax(int8(resp.Player-1), depth, math.Inf(-1), math.Inf(1))
 

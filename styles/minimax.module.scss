@@ -8,11 +8,22 @@
   width: 50%;
   height: 80vh;
 
-  padding: 1.5rem;
+  padding: 2rem;
 
   float: left;
 
+  //overflow: scroll;
+
+  position: relative;
+}
+
+.tree {
   overflow: scroll;
+  height: 55vh;
+  padding: 1rem;
+  background-color: rgba(255, 255, 255, 0.5);
+
+  border-radius: 10px;
 }
 
 .inputDiv {
