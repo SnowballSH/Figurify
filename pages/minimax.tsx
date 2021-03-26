@@ -8,8 +8,11 @@ import {TicTacToe} from "../components/tictactoe";
 
 import {TreeView, TreeItem} from '@material-ui/lab';
 import {Button, Typography} from "@material-ui/core";
-import FilterVintageIcon from "@material-ui/icons/FilterVintage";
-import StarsIcon from "@material-ui/icons/Stars";
+import FlipMove from "react-flip-move";
+import {noBorder, OpenSans} from "../helpers/helper";
+
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
 
 interface resultFromGo {
     Move: number | null,
@@ -27,8 +30,12 @@ export default function MinimaxPage() {
     const [result, setResult] = useState({} as resultFromGo);
 
     useEffect(() => {
-        fetchResult("ttt")()
-    }, [board])
+        fetchResult("ttt")();
+    }, [board]);
+
+    useEffect(() => {
+        fetchResult("ttt")();
+    });
 
     function fetchResult(name_: string): () => Promise<void> {
         return async () => {
@@ -58,24 +65,24 @@ export default function MinimaxPage() {
         };
     }
 
-    function toJSX(ele: resultFromGo, last: number = -1, key: number = 0) {
+    function toJSX(ele: resultFromGo, last: number = -1, key: number = 0, mode: number = player - 1) {
         return [
             <TreeItem key={key} nodeId={String(last++)} label=
                 {
-                    `#${ele.Move+1}: ` + (ele.Children ?
-                    `Best Move: ${
-                        Object.values(ele.Children.filter(
-                            x => x.Score === ele.Score
-                        ).map(x => x.Move+1)).join(", ")
-                } Score: ${ele.Score}`
-                : `Score: ${ele.Score}`)
+                    <Typography variant={"subtitle2"}>
+                         <pre style={OpenSans}>
+                             {`#${ele.Move + 1} | Score: ${ele.Score} (${mode === 1 ? "max" : "min"})`}
+                         </pre>
+                    </Typography>
                 }
             >
                 {
                     ele.Children ?
-                        ele.Children.map(
+                        ele.Children.sort((a, b) =>
+                            (mode === 0 ? 1 : -1) * (b.Score - a.Score)
+                        ).map(
                             (x, i) => {
-                                let [v, l] = toJSX(x, last, i);
+                                let [v, l] = toJSX(x, last, i, mode ^ 1);
                                 last = l as number;
                                 return v;
                             }
@@ -86,9 +93,24 @@ export default function MinimaxPage() {
             , last];
     }
 
+    function display() {
+        let last = -1;
+        return result.Children ?
+            result.Children.sort((a, b) =>
+                (player - 1 === 0 ? 1 : -1) * (b.Score - a.Score)
+            ).map(
+                (x, i) => {
+                    let [v, l] = toJSX(x, last, i);
+                    last = l as number;
+                    return v;
+                }
+            )
+            : null;
+    }
+
     return <div>
         <Head>
-            <title>{NAME} - Data Visualizing</title>
+            <title>{NAME} - Minimax Visualizing</title>
         </Head>
         <Nav/>
 
@@ -98,26 +120,29 @@ export default function MinimaxPage() {
                 <br/>
                 <TicTacToe size={3} onBoardChange={setBoard} onPlayerChange={setPlayer}/>
 
-                <Typography variant={"h5"}>
-                    Player {[
-                    " ",
-                    <FilterVintageIcon style={{fontSize: "2vw"}}/>,
-                    <StarsIcon style={{fontSize: "2vw"}}/>
-                ][player]}
-                </Typography>
-
-                <Button onClick={
-                    fetchResult("ttt")
-                }>
-                    Analyze
-                </Button>
+                <div className="text-center">
+                    <br/>
+                    <Button onClick={
+                        fetchResult("ttt")
+                    } style={noBorder} variant={"contained"}>
+                        <Typography variant="h6">
+                            Analyze Position
+                        </Typography>
+                    </Button>
+                </div>
             </div>
             <div className={styles.resultCard}>
-                <TreeView>
-                    {
-                        toJSX(result)[0]
-                    }
-                </TreeView>
+                {
+                    <TreeView
+                        defaultCollapseIcon={<ExpandMoreIcon/>}
+                        defaultExpandIcon={<ChevronRightIcon/>}>
+                        <FlipMove>
+                            {
+                                display()
+                            }
+                        </FlipMove>
+                    </TreeView>
+                }
             </div>
         </div>
     </div>;

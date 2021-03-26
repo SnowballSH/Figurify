@@ -112,7 +112,7 @@ export default function HomePage() {
                                 <br/>
                                 <br/>
 
-                                Figurify shows you the process of a sorting algorithm and explains every step for you.
+                                Figurify shows you the process of your favorite sorting algorithms and explains every step for you.
 
                                 <br/>
                                 <br/>

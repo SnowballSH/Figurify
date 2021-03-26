@@ -68,12 +68,6 @@ func (board *TictactoeBoard) Winner() (winner interface{}) {
 func (board *TictactoeBoard) analyze() float64 {
 	score := 0.0
 
-	if winner := board.Winner(); winner == 1 {
-		score += 100
-	} else if winner == 2 {
-		score -= 100
-	}
-
 	if board.state[4] == 1 {
 		score += 10
 	} else if board.state[4] == 2 {
@@ -100,6 +94,14 @@ func (board *TictactoeBoard) analyze() float64 {
 		score += 2
 	} else if board.state[8] == 2 {
 		score -= 2
+	}
+
+	if winner := board.Winner(); winner == 1 {
+		score = 1000
+	} else if winner == 2 {
+		score = -1000
+	} else if board.IsFull() {
+		score = 0
 	}
 
 	return score
@@ -165,7 +167,7 @@ func TTT(w http.ResponseWriter, r *http.Request) {
 		}
 		iterate(board, node, resp.Player)
 
-		depth := 3
+		depth := 4
 
 		node.Minimax(int8(resp.Player-1), depth, math.Inf(-1), math.Inf(1))
 
@@ -201,8 +203,6 @@ func TTT(w http.ResponseWriter, r *http.Request) {
 		}
 
 		result = iterPut(node)
-
-		fmt.Println(*result)
 
 		marshalled, e := json.Marshal(result)
 		if e != nil {

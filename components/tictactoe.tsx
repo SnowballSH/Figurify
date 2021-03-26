@@ -111,5 +111,28 @@ export function TicTacToe(props: {
                 }
             ) as JSX.Element[]
         }
+
+        <div className="text-center">
+            <br/>
+            <br/>
+            <Typography variant={"h5"}>
+                {
+                    board.flat().filter(x => x === 0).length == 0 ? "Draw!" :
+                        ended ? <>
+                            Player {[
+                            " ",
+                            <FilterVintageIcon style={{fontSize: "2vw"}}/>,
+                            <StarsIcon style={{fontSize: "2vw"}}/>
+                        ][current ^ 3]} Won!
+                        </> : <>
+                            Player {[
+                            " ",
+                            <FilterVintageIcon style={{fontSize: "2vw"}}/>,
+                            <StarsIcon style={{fontSize: "2vw"}}/>
+                        ][current]}'s turn
+                        </>
+                }
+            </Typography>
+        </div>
     </div>;
 }

@@ -30,6 +30,20 @@ const theme = createMuiTheme({
     }
 });
 
+theme.typography.subtitle2 = {
+    fontFamily: dFont,
+    fontSize: '0.6rem',
+    [theme.breakpoints.up('xs')]: {
+        fontSize: '0.6rem',
+    },
+    [theme.breakpoints.up('sm')]: {
+        fontSize: '0.9rem',
+    },
+    [theme.breakpoints.up('md')]: {
+        fontSize: '1.1rem',
+    },
+};
+
 theme.typography.h6 = {
     fontFamily: dFont,
     fontSize: '1rem',
