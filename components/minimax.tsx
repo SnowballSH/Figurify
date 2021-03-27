@@ -184,8 +184,7 @@ export default function MinimaxPage(props: {size: 3 | 4}) {
                         <MenuItem value={4}>4</MenuItem>
                         <MenuItem value={5}>5</MenuItem>
                         <MenuItem value={6}>6</MenuItem>
-                        <MenuItem value={10}>10 (Slow)</MenuItem>
-                        <MenuItem value={20}>20 (Slow)</MenuItem>
+                        <MenuItem value={9}>9 (Unbeatable)</MenuItem>
                     </Select>
                 </FormControl>
                 <Button onClick={

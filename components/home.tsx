@@ -112,7 +112,8 @@ export default function HomePage() {
                                 <br/>
                                 <br/>
 
-                                Figurify shows you the process of your favorite sorting algorithms and explains every step for you.
+                                Figurify shows you the process of your favorite sorting algorithms and explains every
+                                step for you.
 
                                 <br/>
                                 <br/>
@@ -126,6 +127,62 @@ export default function HomePage() {
                             <Link href="/sort">
                                 <Button variant="contained"><Typography variant="h6" style={{...Pangolin}}>
                                     Visualize Sorting Algorithms
+                                </Typography></Button>
+                            </Link>
+                        </CardContent>
+                    </div>
+                </Card>
+
+                <br/>
+                <br/>
+                <br/>
+
+                <Card className="p-5">
+                    <CardContent>
+                        <Typography variant={"h3"} className="font-bold">
+                            Visualize the Minimax Algorithm
+                        </Typography>
+                    </CardContent>
+                    <div>
+                        <CardContent>
+                            <Typography variant={"h5"} className="font-bold">
+                                <Image
+                                    src="/minimax_demo.gif"
+                                    alt="Minimax Demo"
+                                    width={1299 * .7}
+                                    height={531 * .7}>
+
+                                </Image>
+                                <br/>
+                                <br/>
+
+                                Figurify has an unbeatable Tic Tac Toe engine made using Minimax.
+                                <br/>
+                                We also provide a user
+                                interface allowing to enable/disable rich mode, change analysis depth, and reset the
+                                board.
+                                <br/>
+                                <br/>
+
+                                With it, you can view the whole data tree of the algorithm and see how "min" and "max"
+                                work!
+                            </Typography>
+
+                            <br/>
+                            <br/>
+
+                            <Link href="/minimax">
+                                <Button variant="contained"><Typography variant="h6" style={{...Pangolin}}>
+                                    Visualize Minimax by playing Tic Tac Toe
+                                </Typography></Button>
+                            </Link>
+
+                            <br/>
+                            <br/>
+
+                            <Link href="/minimax4">
+                                <Button variant="contained"><Typography variant="subtitle2" style={{...Pangolin}}>
+                                    Experimental feature: 4x4 Tic Tac Toe Minimax
                                 </Typography></Button>
                             </Link>
                         </CardContent>
