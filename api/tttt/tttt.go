@@ -1,4 +1,4 @@
-package api
+package tttt
 
 import (
 	"encoding/json"
@@ -10,54 +10,55 @@ import (
 	mm "github.com/SnowballSH/gominimax"
 )
 
-const E = 0
+const G = 0
 
-type TictactoeBoard struct {
-	state [9]int
+type TictactoeBoard4 struct {
+	state [16]int
 }
 
-func (board *TictactoeBoard) IsEmpty(index int) bool {
-	return board.state[index] == E
+func (board *TictactoeBoard4) IsEmpty(index int) bool {
+	return board.state[index] == G
 }
 
-func (board *TictactoeBoard) IsFull() bool {
+func (board *TictactoeBoard4) IsFull() bool {
 	for index := 0; index < len(board.state); index++ {
-		if board.state[index] == E {
+		if board.state[index] == G {
 			return false
 		}
 	}
 	return true
 }
 
-func (board *TictactoeBoard) OpenPositions() (positions []int) {
+func (board *TictactoeBoard4) OpenPositions() (positions []int) {
 	for index, val := range board.state {
-		if val == E {
+		if val == G {
 			positions = append(positions, index)
 		}
 	}
 	return
 }
 
-func (board *TictactoeBoard) SetMark(mark int, index int) {
+func (board *TictactoeBoard4) SetMark(mark int, index int) {
 	board.state[index] = mark
 }
 
-func winningCombinations() [8][3]int {
-	return [8][3]int{
-		{0, 1, 2}, {3, 4, 5}, {6, 7, 8},
-		{0, 3, 6}, {1, 4, 7}, {2, 5, 8},
-		{0, 4, 8}, {2, 4, 6},
+func winningCombinations4() [10][4]int {
+	return [10][4]int{
+		{0, 1, 2, 3}, {4, 5, 6, 7}, {8, 9, 10, 11}, {12, 13, 14, 15},
+		{0, 4, 8, 12}, {1, 5, 9, 13}, {2, 6, 10, 14}, {3, 7, 11, 15},
+		{0, 5, 10, 15}, {3, 6, 9, 12},
 	}
 }
 
-func (board *TictactoeBoard) Winner() (winner interface{}) {
+func (board *TictactoeBoard4) Winner() (winner interface{}) {
 	winner = nil
-	for _, combination := range winningCombinations() {
-		if board.state[combination[0]] == E {
+	for _, combination := range winningCombinations4() {
+		if board.state[combination[0]] == G {
 			continue
 		}
 		if board.state[combination[0]] == board.state[combination[1]] &&
-			board.state[combination[0]] == board.state[combination[2]] {
+			board.state[combination[0]] == board.state[combination[2]] &&
+			board.state[combination[0]] == board.state[combination[3]] {
 			winner = board.state[combination[0]]
 			break
 		}
@@ -65,35 +66,29 @@ func (board *TictactoeBoard) Winner() (winner interface{}) {
 	return winner
 }
 
-func (board *TictactoeBoard) analyze(rich bool) float64 {
+func (board *TictactoeBoard4) analyze(rich bool) float64 {
 	score := 0.0
 
 	if rich {
-		if board.state[4] == 1 {
-			score += 10
-		} else if board.state[4] == 2 {
-			score -= 10
-		}
-
 		if board.state[0] == 1 {
 			score += 2
 		} else if board.state[0] == 2 {
 			score -= 2
 		}
-		if board.state[2] == 1 {
+		if board.state[3] == 1 {
 			score += 2
-		} else if board.state[2] == 2 {
+		} else if board.state[3] == 2 {
 			score -= 2
 		}
-		if board.state[6] == 1 {
+		if board.state[12] == 1 {
 			score += 2
-		} else if board.state[6] == 2 {
+		} else if board.state[12] == 2 {
 			score -= 2
 		}
 
-		if board.state[8] == 1 {
+		if board.state[15] == 1 {
 			score += 2
-		} else if board.state[8] == 2 {
+		} else if board.state[15] == 2 {
 			score -= 2
 		}
 	}
@@ -109,7 +104,7 @@ func (board *TictactoeBoard) analyze(rich bool) float64 {
 	return score
 }
 
-func iterate(board *TictactoeBoard, node *mm.Node, player int, rich bool) {
+func iterate4(board *TictactoeBoard4, node *mm.Node, player int, rich bool) {
 	if board.IsFull() || board.Winner() != nil {
 		res := board.analyze(rich)
 		node.Value = &res
@@ -120,7 +115,7 @@ func iterate(board *TictactoeBoard, node *mm.Node, player int, rich bool) {
 	}
 
 	for _, w := range board.OpenPositions() {
-		b := &TictactoeBoard{state: board.state}
+		b := &TictactoeBoard4{state: board.state}
 		b.SetMark(player, w)
 
 		n := &mm.Node{
@@ -129,14 +124,14 @@ func iterate(board *TictactoeBoard, node *mm.Node, player int, rich bool) {
 			},
 			Info: w,
 		}
-		iterate(b, n, player^3, rich)
+		iterate4(b, n, player^3, rich)
 		node.Children = append(node.Children, n)
 	}
 }
 
-func TTT(w http.ResponseWriter, r *http.Request) {
+func TTTT(w http.ResponseWriter, r *http.Request) {
 	var resp struct {
-		Board  [9]int
+		Board  [16]int
 		Player int
 		Depth  int
 		Rich   bool
@@ -160,7 +155,7 @@ func TTT(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		board := &TictactoeBoard{
+		board := &TictactoeBoard4{
 			state: resp.Board,
 		}
 
@@ -169,7 +164,7 @@ func TTT(w http.ResponseWriter, r *http.Request) {
 				return board.analyze(resp.Rich)
 			},
 		}
-		iterate(board, node, resp.Player, resp.Rich)
+		iterate4(board, node, resp.Player, resp.Rich)
 
 		depth := resp.Depth
 

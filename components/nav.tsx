@@ -4,6 +4,12 @@ import Link from "next/link";
 import styles from "../styles/nav.module.scss";
 import {NAME} from "../config/config";
 import {Pangolin} from "../helpers/helper";
+import dynamic from "next/dynamic";
+
+import {
+    BrowserView,
+    MobileView,
+} from "react-device-detect";
 
 export function Nav() {
     return (
@@ -22,19 +28,34 @@ export function Nav() {
 
                 <Link href="/data">
                     <a><Typography variant="h6" style={{paddingRight: "40px", ...Pangolin}}>
-                        Data Visualization
+                        <BrowserView>
+                            Data Visualization
+                        </BrowserView>
+                        <MobileView>
+                            Data
+                        </MobileView>
                     </Typography></a>
                 </Link>
 
                 <Link href="/sort">
                     <a><Typography variant="h6" style={{paddingRight: "40px", ...Pangolin}}>
-                        Sorting Visualization
+                        <BrowserView>
+                            Sorting Visualization
+                        </BrowserView>
+                        <MobileView>
+                            Sorting
+                        </MobileView>
                     </Typography></a>
                 </Link>
 
                 <Link href="/minimax">
-                    <a><Typography variant="h6" style={{paddingRight: "40px", ...Pangolin}}>
-                        Minimax Visualization
+                    <a><Typography variant="h6" style={{...Pangolin}}>
+                        <BrowserView>
+                            Minimax Visualization
+                        </BrowserView>
+                        <MobileView>
+                            Minmax
+                        </MobileView>
                     </Typography></a>
                 </Link>
             </Toolbar>

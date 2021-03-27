@@ -25,16 +25,29 @@ export function TicTacToe(props: {
 
     const [ended, setEnded] = useState(false);
 
-    const winningConditions = [
-        [0, 1, 2],
-        [3, 4, 5],
-        [6, 7, 8],
-        [0, 3, 6],
-        [1, 4, 7],
-        [2, 5, 8],
-        [0, 4, 8],
-        [2, 4, 6]
-    ];
+    function winningConditions(): number[][] {
+        return props.size === 3 ? [
+            [0, 1, 2],
+            [3, 4, 5],
+            [6, 7, 8],
+            [0, 3, 6],
+            [1, 4, 7],
+            [2, 5, 8],
+            [0, 4, 8],
+            [2, 4, 6]
+        ] : props.size === 4 ? [
+            [0, 1, 2, 3],
+            [4, 5, 6, 7],
+            [8, 9, 10, 11],
+            [12, 13, 14, 15],
+            [0, 4, 8, 12],
+            [1, 5, 9, 13],
+            [2, 6, 10, 14],
+            [3, 7, 11, 15],
+            [0, 5, 10, 15],
+            [3, 6, 9, 12]
+        ] : [];
+    }
 
     useEffect(() => {
         props.onBoardChange(board);
@@ -44,15 +57,16 @@ export function TicTacToe(props: {
             if (board.flat().filter(x => x === 0).length == 0) setEnded(null);
             let roundWon = false;
             let bo = board.flat();
-            for (let i = 0; i <= 7; i++) {
-                const winCondition = winningConditions[i];
+            for (let i = 0; i < winningConditions().length; i++) {
+                const winCondition = winningConditions()[i];
                 let a = bo[winCondition[0]];
                 let b = bo[winCondition[1]];
                 let c = bo[winCondition[2]];
-                if (a === 0 || b === 0 || c === 0) {
+                let d = props.size === 4 ? bo[winCondition[3]] : c;
+                if (a === 0 || b === 0 || c === 0 || d == 0) {
                     continue;
                 }
-                if (a === b && b === c) {
+                if (a === b && b === c && c == d && d == a) {
                     roundWon = true;
                     break;
                 }
@@ -70,7 +84,7 @@ export function TicTacToe(props: {
                     let cols = x.map(
                         (y, col) => (
                             <Grid key={col} item>
-                                <Tooltip title={"#" + String(3 * row + col + 1)} arrow={true}>
+                                <Tooltip title={"#" + String(props.size * row + col + 1)} arrow={true}>
                                     <ButtonBase
                                         style={{...noBorder, margin: "1vw"}}
                                     >
@@ -93,7 +107,7 @@ export function TicTacToe(props: {
                                                 {[
                                                     <Typography variant={"h5"}
                                                                 style={{fontSize: "3vw", marginTop: "1.55vw"}}>
-                                                        {"#" + String(3 * row + col + 1)}
+                                                        {"#" + String(props.size * row + col + 1)}
                                                     </Typography>,
                                                     <FilterVintageIcon style={{fontSize: "5vw", marginTop: "0.25vw"}}/>,
                                                     <StarsIcon style={{fontSize: "5vw", marginTop: "0.25vw"}}/>
