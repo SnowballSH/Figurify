@@ -4,12 +4,8 @@ import Link from "next/link";
 import styles from "../styles/nav.module.scss";
 import {NAME} from "../config/config";
 import {Pangolin} from "../helpers/helper";
-import dynamic from "next/dynamic";
 
-import {
-    BrowserView,
-    MobileView,
-} from "react-device-detect";
+import {BrowserView, MobileView,} from "react-device-detect";
 
 export function Nav() {
     return (

@@ -5,14 +5,13 @@ import "nprogress/nprogress.css";
 import Head from "next/head";
 import {Router} from "next/router";
 import NProgress from "nprogress";
+import {createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
+import {NAME} from "../config/config";
+import {Roboto} from "../helpers/helper";
 
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
 Router.events.on('routeChangeError', () => NProgress.done());
-
-import {ThemeProvider, createMuiTheme} from '@material-ui/core/styles';
-import {NAME} from "../config/config";
-import {Roboto} from "../helpers/helper";
 
 const dFont = [
     'Chilanka',

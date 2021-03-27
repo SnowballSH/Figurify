@@ -3,7 +3,7 @@ import {ChangeEvent, useEffect, useState} from "react";
 import styles from '../styles/minimax.module.scss';
 import {TicTacToe} from "./tictactoe";
 
-import {TreeView, TreeItem} from '@material-ui/lab';
+import {TreeItem, TreeView} from '@material-ui/lab';
 import {
     Box,
     Button,
@@ -50,7 +50,7 @@ interface resultFromGo {
     Children: resultFromGo[]
 }
 
-export default function MinimaxPage(props: {size: 3 | 4}) {
+export default function MinimaxPage(props: { size: 3 | 4 }) {
     const [board, setBoard] = useState(Array.from({length: props.size},
         () => Array.from({length: props.size},
             () => 0

@@ -1,4 +1,4 @@
-import {useState, ChangeEvent, Component} from "react";
+import {ChangeEvent, Component, useState} from "react";
 import {IconButton, TextField} from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 import {noBorder} from "../helpers/helper";

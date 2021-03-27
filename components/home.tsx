@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import {Typography, Box, Card, CardContent, Button} from "@material-ui/core";
+import {Box, Button, Card, CardContent, Typography} from "@material-ui/core";
 
 import styles from "../styles/home.module.scss";
 import {useEffect, useState} from "react";

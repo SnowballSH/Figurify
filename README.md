@@ -17,11 +17,11 @@
 ### Features:
 
 - Data Visualization
-  - Create **downloadable** (svg, png, csv), **resizable**, and **interactive** graphs with simple clicks.
+    - Create **downloadable** (svg, png, csv), **resizable**, and **interactive** graphs with simple clicks.
 - Sorting Visualization
-  - Figurify shows you the process of your favorite sorting algorithms and **explains every step** for you.
+    - Figurify shows you the process of your favorite sorting algorithms and **explains every step** for you.
 - Minimax Visualization
-  - See how the Minimax AI crashes you in Tic Tac Toe by visualizing its data tree **right in your browser**.
+    - See how the Minimax AI crashes you in Tic Tac Toe by visualizing its data tree **right in your browser**.
 
 ---
 

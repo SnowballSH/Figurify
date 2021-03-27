@@ -8,6 +8,8 @@
 
   @apply m-8;
   @apply overflow-scroll;
+
+  height: 40vh;
 }
 
 .resultCard {
@@ -33,6 +35,8 @@
   @apply flex;
   @apply space-x-8;
   @apply space-y-8;
+
+  overflow-y: scroll;
 }
 
 .btn1 {

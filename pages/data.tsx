@@ -17,7 +17,9 @@ export default class DataPage extends Component<any, any> {
             </Head>
             <Nav/>
             <div className={styles.bg}>
-                <DataInput/>
+                <div>
+                    <DataInput/>
+                </div>
             </div>
         </>);
     }

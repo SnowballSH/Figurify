@@ -1,19 +1,18 @@
 import {FieldCombo} from "./field";
-import {Component} from "react";
+import {ChangeEvent, Component} from "react";
 
 import autoBind from 'react-autobind';
-import {Button, Container} from "@material-ui/core";
+import {Button, Container, FormControl, InputLabel, MenuItem, Select} from "@material-ui/core";
 import Add from "@material-ui/icons/Add";
 import EqualizerIcon from '@material-ui/icons/Equalizer';
 
 import dynamic from "next/dynamic";
-
-const Chart = dynamic(import('react-apexcharts'), {ssr: false});
-
 import styles from '../styles/data.module.scss';
 
 import FlipMove from 'react-flip-move';
 import {noBorder, Roboto} from "../helpers/helper";
+
+const Chart = dynamic(import('react-apexcharts'), {ssr: false});
 
 interface PP {
     e: JSX.Element
@@ -21,7 +20,7 @@ interface PP {
     yText: string
 }
 
-export default class DataInput extends Component<{}, { items: PP[], graph: ChartProp }> {
+export default class DataInput extends Component<{}, { items: PP[], graph: ChartProp, type: TypeValue }> {
     constructor(props) {
         super(props);
         this.state = {
@@ -54,7 +53,8 @@ export default class DataInput extends Component<{}, { items: PP[], graph: Chart
                     yText: "120"
                 }
             ],
-            graph: null
+            graph: null,
+            type: "line",
         };
         autoBind(this);
     }
@@ -76,7 +76,7 @@ export default class DataInput extends Component<{}, { items: PP[], graph: Chart
                     name: 'Y',
                     data: Object.values(this.state.items).filter(e => e).map(e => parseFloat(e.yText) || 0)
                 }],
-                type: "line",
+                type: this.state.type,
                 responsive: [{
                     breakpoint: 1000,
                     options: {}
@@ -168,6 +168,27 @@ export default class DataInput extends Component<{}, { items: PP[], graph: Chart
                         color="inherit" startIcon={<EqualizerIcon/>} onClick={() => {
                     this.graph();
                 }}>Graph</Button>
+
+                <br/>
+
+                <FormControl variant="filled" style={{width: "10rem", height: "6rem", marginRight: "1rem"}}>
+                    <InputLabel id="type selector" style={Roboto}>Graph Type</InputLabel>
+                    <Select
+                        labelId="type selector"
+                        value={this.state.type}
+                        onChange={(event: ChangeEvent<{ value: unknown }>) => {
+                            this.setState({...this.state, type: event.target.value as TypeValue},
+                                () => {
+                                    this.graph();
+                                });
+                        }}
+                    >
+                        <MenuItem value={"line"}>line</MenuItem>
+                        <MenuItem value={"area"}>area</MenuItem>
+                        <MenuItem value={"bar"}>bar</MenuItem>
+                        <MenuItem value={"histogram"}>histogram</MenuItem>
+                    </Select>
+                </FormControl>
 
             </div>
 

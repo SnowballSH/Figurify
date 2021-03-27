@@ -1,5 +1,4 @@
 import Head from 'next/head';
-import absoluteUrl from 'next-absolute-url';
 import {Component} from 'react';
 import {Nav} from "../components/nav";
 import HomePage from "../components/home";
