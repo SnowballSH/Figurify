@@ -180,11 +180,15 @@ export default function HomePage() {
                             <br/>
                             <br/>
 
-                            <Link href="/minimax4">
-                                <Button variant="contained"><Typography variant="subtitle2" style={{...Pangolin}}>
-                                    Experimental feature: 4x4 Tic Tac Toe Minimax
-                                </Typography></Button>
-                            </Link>
+                            {
+                                /*
+                                <Link href="/minimax4">
+                                    <Button variant="contained"><Typography variant="subtitle2" style={{...Pangolin}}>
+                                        Experimental feature: 4x4 Tic Tac Toe Minimax
+                                    </Typography></Button>
+                                </Link>
+                                 */
+                            }
                         </CardContent>
                     </div>
                 </Card>

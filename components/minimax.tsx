@@ -101,7 +101,7 @@ export default function MinimaxPage(props: {size: 3 | 4}) {
 
             //console.log(result);
 
-            console.log(loading);
+            //console.log(loading);
 
             setLoading(false);
             setResult(result as resultFromGo);
@@ -189,7 +189,7 @@ export default function MinimaxPage(props: {size: 3 | 4}) {
                 </FormControl>
                 <Button onClick={
                     () => {
-                        fetchResult("ttt")();
+                        fetchResult("t".repeat(props.size))();
                     }
                 } style={{...noBorder, height: "3.5rem"}} variant={"contained"}>
                     <Typography variant="subtitle2">
