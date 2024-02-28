@@ -3,11 +3,11 @@ import '../styles/reset.min.css';
 import "nprogress/nprogress.css";
 
 import Head from "next/head";
-import {Router} from "next/router";
+import { Router } from "next/router";
 import NProgress from "nprogress";
-import {createMuiTheme, ThemeProvider} from '@material-ui/core/styles';
-import {NAME} from "../config/config";
-import {Roboto} from "../helpers/helper";
+import { createTheme, ThemeProvider } from '@material-ui/core/styles';
+import { NAME } from "../config/config";
+import { Roboto } from "../helpers/helper";
 
 Router.events.on('routeChangeStart', () => NProgress.start());
 Router.events.on('routeChangeComplete', () => NProgress.done());
@@ -18,7 +18,7 @@ const dFont = [
     'cursive',
 ].join(',');
 
-const theme = createMuiTheme({
+const theme = createTheme({
     typography: {
         fontFamily: dFont,
     },
@@ -127,10 +127,10 @@ theme.typography.h1 = {
     },
 };
 
-function MyApp({Component, pageProps}) {
+function MyApp({ Component, pageProps }) {
     return <>
         <Head>
-            <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons"/>
+            <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
             <title>{NAME}</title>
         </Head>
         <ThemeProvider theme={theme}>

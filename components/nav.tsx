@@ -12,47 +12,47 @@ export function Nav() {
         <AppBar position={"sticky"} color={"transparent"} className={styles.Nav}>
             <Toolbar>
                 <Link href="/">
-                    <a><Typography variant="h4"
+                    <Typography variant="h4"
                                    style={{
                                        paddingRight: "40px", fontWeight: "bold",
                                        ...Pangolin,
                                        color: "#ec5c5c"
                                    }}>
                         {NAME}
-                    </Typography></a>
+                    </Typography>
                 </Link>
 
                 <Link href="/data">
-                    <a><Typography variant="h6" style={{paddingRight: "40px", ...Pangolin}}>
+                    <Typography variant="h6" style={{paddingRight: "40px", ...Pangolin}}>
                         <BrowserView>
                             Data Visualization
                         </BrowserView>
                         <MobileView>
                             Data
                         </MobileView>
-                    </Typography></a>
+                    </Typography>
                 </Link>
 
                 <Link href="/sort">
-                    <a><Typography variant="h6" style={{paddingRight: "40px", ...Pangolin}}>
+                    <Typography variant="h6" style={{paddingRight: "40px", ...Pangolin}}>
                         <BrowserView>
                             Sorting Visualization
                         </BrowserView>
                         <MobileView>
                             Sorting
                         </MobileView>
-                    </Typography></a>
+                    </Typography>
                 </Link>
 
                 <Link href="/minimax">
-                    <a><Typography variant="h6" style={{...Pangolin}}>
+                    <Typography variant="h6" style={{...Pangolin}}>
                         <BrowserView>
                             Minimax Visualization
                         </BrowserView>
                         <MobileView>
                             Minmax
                         </MobileView>
-                    </Typography></a>
+                    </Typography>
                 </Link>
             </Toolbar>
         </AppBar>
