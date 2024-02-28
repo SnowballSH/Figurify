@@ -2,7 +2,6 @@ type TypeValue =
     "line"
     | "area"
     | "bar"
-    | "histogram"
     | "pie"
     | "donut"
     | "rangeBar"
@@ -12,49 +11,49 @@ type TypeValue =
     | "heatmap"
     | "candlestick"
     | "radar"
-    | "polarArea"
+    | "polarArea";
 
 interface State {
     options: {
         chart: {
-            id: string
-        }
+            id: string;
+        };
         xaxis: {
-            categories: number[]
-        }
+            categories: number[];
+        };
     },
     series: {
         name: string,
-        data: number[]
-    }[]
-    type: TypeValue
-    width: number
-    height: number
-    responsive: { breakpoint: number, options: object }[]
+        data: number[];
+    }[];
+    type: TypeValue;
+    width: number;
+    height: number;
+    responsive: { breakpoint: number, options: object; }[];
 }
 
 interface ChartProp {
-    id: string
+    id: string;
     xaxis: {
-        categories: number[]
-    }
+        categories: number[];
+    };
     series: {
         name: string,
-        data: number[]
-    }[]
-    type: TypeValue
-    width: number
-    height: number
-    responsive: { breakpoint: number, options: object }[]
+        data: number[];
+    }[];
+    type: TypeValue;
+    width: number;
+    height: number;
+    responsive: { breakpoint: number, options: object; }[];
 }
 
 interface NumberWithKey {
-    n: number
-    key: number
-    color: string
+    n: number;
+    key: number;
+    color: string;
 }
 
 interface Step {
-    list: NumberWithKey[]
-    why: string
+    list: NumberWithKey[];
+    why: string;
 }
